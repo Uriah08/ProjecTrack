@@ -45,6 +45,23 @@ model Session {
   @@map("sessions")
 }
  
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+
+
+
+
+
+
+
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -55,13 +72,4 @@ model User {
   sessions      Session[]
  
   @@map("users")
-}
- 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@unique([identifier, token])
-  @@map("verificationtokens")
 }

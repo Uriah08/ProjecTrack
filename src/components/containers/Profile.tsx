@@ -1,15 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { auth } from '@/auth'
 
-const Profile = () => {
+const  Profile = async () => {
+
+  const session = await auth()
+
   return (
     <Link href={'/profile'} className='flex items-center gap-3'>
         <div className='flex flex-col items-end'>
-            <h1 className='font-medium'>John Doe</h1>
-            <p className='text-xs text-[#868686]'>johndoe@sample.com</p>
+            <h1 className='font-medium'>{session?.user?.name}</h1>
+            <p className='text-xs text-[#868686]'>{session?.user?.email}</p>
         </div>
-        <Image src={'/logo.png'} width={40} height={40} alt='profile picture'/>
+        <Image src={session?.user?.image ?? '/logo.png'} width={40} height={40} alt='profile picture' className='rounded-full'/>
     </Link>
   )
 }

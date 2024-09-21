@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input } from '../ui/input'
+import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import Profile from './Profile'
 import ToggleTheme from '../toggle-theme'

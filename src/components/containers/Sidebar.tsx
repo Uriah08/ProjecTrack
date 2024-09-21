@@ -4,7 +4,9 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import SidebarLinks from './SidebarLinks'
 import { Gauge, FolderPlus, Search, Clock, Users, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
+import DialogContainer from './Dialog'
 
 type Props = {
     sidebarOpen: boolean
@@ -21,7 +23,18 @@ const Sidebar = ({sidebarOpen}:Props) => {
             <Image src={'/logo.png'} width={40} height={40} alt='logo'/>
             <h1 className='font-semibold text-lg text-main hidden md:block'>Projec<span className='text-follow'>Track</span></h1>
         </div>
-        <Button className='m-2 my-5 md:m-5 dark:bg-main dark:hover:bg-main2 bg-follow hover:bg-follow2 gap-2'><FolderPlus size={20}/><span className='hidden md:block'>Create Project</span></Button>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className='m-2 my-5 md:m-5 dark:bg-main dark:hover:bg-main2 bg-follow hover:bg-follow2 gap-2'><FolderPlus size={20}/>
+              <span className='hidden md:block'>
+                Create Project
+              </span>
+            </Button>
+          </DialogTrigger>
+          <DialogContainer type='project'/>
+        </Dialog>
+
         <div className='py-2'/>
         <SidebarLinks label='Dashboard' icon={Gauge} link='/'/>
         <SidebarLinks label='Search' icon={Search} link='/search'/>

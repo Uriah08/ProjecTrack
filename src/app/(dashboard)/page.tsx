@@ -1,6 +1,9 @@
 import SignOut from "@/src/components/sign-out";
+import { auth } from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+
+  const session = await auth()
 
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex md:flex-row flex-col gap-8">
@@ -29,6 +32,7 @@ export default function Home() {
 
         </div>
       </div> */}
+      <h1>{JSON.stringify(session)}</h1>
       <SignOut/>
     </div>
   );

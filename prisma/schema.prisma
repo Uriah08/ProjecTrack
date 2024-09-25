@@ -70,6 +70,18 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
- 
+
+  projects      Project[]
+  
   @@map("users")
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  userId      String    @map("user_id")
+  user        User      @relation(fields: [userId], references: [id])
 }

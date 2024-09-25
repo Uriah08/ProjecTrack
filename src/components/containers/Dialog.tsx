@@ -8,7 +8,7 @@ import CreateProject from '../forms/CreateProject'
 
 const DialogContainer = ({type}:{type: string}) => {
   return (
-    <DialogContent className="sm:max-w-[500px] bg-myLight dark:bg-myDark gap-10">
+    <DialogContent aria-describedby={undefined} className="sm:max-w-[500px] bg-myLight dark:bg-myDark gap-10">
         <DialogHeader>
             <DialogTitle>
                 {type === 'project'? 'Create Project' : 'Add Task'}

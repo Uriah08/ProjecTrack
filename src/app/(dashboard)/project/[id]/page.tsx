@@ -1,49 +1,31 @@
-// 'use client'
+'use client'
 
-// import Header from '@/src/components/containers/Header'
-// import React, { useEffect, useState } from 'react'
-// import { useRouter } from 'next/navigation'
+import React from 'react'
+import { useParams } from 'next/navigation'
 
-// const ProjectPage = () => {
+import { useGetProjectByIdQuery } from '@/src/store/api'
+import { Button } from '@/src/components/ui/button'
 
-//   const router = useRouter()
-//   const { id } = router.query
+const ProjectsPage = () => {
 
-//   const [project, setProject] = useState(null)
-//   const [error, setError] = useState(null)
+  const { id } = useParams()
+  const { data: project, isLoading, error} = useGetProjectByIdQuery(id.toString())
 
-//   useEffect(() => {
-//     if (id) {
-//       const fetchData = async () => {
-//         try {
-//           const response = await fetch(`/api/projects/${id}`, {
-//             method: 'GET',
-//             headers: {
-//               'Content-Type': 'application/json',
-//             },
-//           })
+  const [openTab, setOpenTab] = React.useState('board')
 
-//           if (!response.ok) {
-//             throw new Error('Failed to fetch project data')
-//           }
+  if (isLoading) return <div className='bg-myLightFollow dark:bg-myDarkFollow h-full'>Loading...</div>
+  if (error) return <div className='bg-myLightFollow dark:bg-myDarkFollow h-full'>Error fetching data</div>
 
-//           const data = await response.json()
-//           setProject(data)
-//         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//         } catch (error:any) {
-//           setError(error.message)
-//         }
-//       }
+  return (
+    <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex flex-col">
+      <div className='flex justify-between items-center'>
+      <h1 className='text-2xl font-semibold'>{project?.name}</h1>
+      <Button className='dark:bg-main bg-follow' variant={'outline'}>
+        Create Task
+      </Button>
+      </div>
+    </div>
+  )
+}
 
-//       fetchData()
-//     }
-//   },[id])
-
-//   return (
-//     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex flex-col">
-//       <Header title={project.name}/>
-//     </div>
-//   )
-// }
-
-// export default ProjectPage
+export default ProjectsPage

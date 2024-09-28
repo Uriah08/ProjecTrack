@@ -31,10 +31,14 @@ import { projectSchema } from "@/src/schemas"
 import { useSession } from "next-auth/react"
 
 import { formatISO } from 'date-fns'
+import { useCreateProjectMutation } from "@/src/store/api"
+
 
 const CreateProject = () => {
 
     const { data: session } = useSession()
+
+    const [createProject, { isLoading }] = useCreateProjectMutation()
 
     const form = useForm<z.infer<typeof projectSchema>>({
         resolver: zodResolver(projectSchema),
@@ -55,20 +59,8 @@ const CreateProject = () => {
         };
 
             try {
-                const response = await fetch('/api/projects', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(projectData),
-                })
-                console.log('Response Status:', response.status);
-                const result = await response.json();
-                console.log('Response Body:', result);
-
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${result.message || result.error}`);
-                }
+                await createProject(projectData).unwrap()
+                form.reset();
             } catch (error) {
                 console.log(error);
             }
@@ -173,7 +165,7 @@ const CreateProject = () => {
                     />
                 </div>
                 <Button type="submit" className="dark:bg-main dark:hover:bg-main2 hover:bg-follow2 bg-follow w-full">
-                    {form.formState.isSubmitting ? 'Creating...' : 'Create'}
+                    {isLoading ? 'Creating...' : 'Create'}
                 </Button>
             </form>
         </Form>

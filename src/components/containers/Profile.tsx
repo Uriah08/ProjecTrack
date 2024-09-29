@@ -9,7 +9,7 @@ const  Profile = async () => {
 
   return (
     <Link href={'/profile'} className='flex items-center gap-3'>
-        <div className='flex flex-col items-end'>
+        <div className='sm:flex flex-col items-end hidden'>
             <h1 className='font-medium'>{session?.user?.name}</h1>
             <p className='text-xs text-[#868686]'>{session?.user?.email}</p>
         </div>

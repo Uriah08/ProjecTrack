@@ -5,6 +5,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import CreateProject from '../forms/CreateProject'
+import CreateTask from '../forms/CreateTask'
 
 const DialogContainer = ({type}:{type: string}) => {
   return (
@@ -14,7 +15,7 @@ const DialogContainer = ({type}:{type: string}) => {
                 {type === 'project'? 'Create Project' : 'Add Task'}
             </DialogTitle>
         </DialogHeader>
-        {type === 'project' ? (<CreateProject/>): (<></>)}
+        {type === 'project' ? (<CreateProject/>): (<CreateTask/>)}
     </DialogContent>
   )
 }

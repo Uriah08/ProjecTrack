@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react'
 import { store, persistor } from '@/src/store/store'
 import { Provider as ReduxProvider } from 'react-redux';
 import dynamic from 'next/dynamic';
+import { Toaster } from "@/components/ui/toaster"
 
 type Props = {
     children: ReactNode
@@ -29,6 +30,7 @@ const Provider = ({children}: Props) => {
         <ReduxProvider store={store}>
           <PersistGateDynamic loading={null} persistor={persistor}>
             {children}
+            <Toaster/>
           </PersistGateDynamic>
         </ReduxProvider>
       </SessionProvider>

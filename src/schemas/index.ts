@@ -10,17 +10,8 @@ export const taskSchema = z.object({
     tags: z.string().optional(),
     priority: z.string(),
     status: z.string(),
-    startDate: z.string().refine(value => !isNaN(Date.parse(value)), {
-        message: "End date must be a valid date"
-    }),
-    endDate: z.string().refine(value =>!isNaN(Date.parse(value)), {
-        message: "End date must be a valid date"
-    }),
     projectId: z.string()
-}).refine(data => new Date(data.endDate) > new Date(data.startDate), {
-    message: "End date must be after start date",
-    path: ["endDate"],
-});
+})
 
 export const projectSchema = z.object({
     name: z.string().min(3, {

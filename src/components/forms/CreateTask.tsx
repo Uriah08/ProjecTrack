@@ -9,21 +9,11 @@ import {
     FormField, 
     FormItem, 
     FormLabel,
-    FormMessage
 } from "../ui/form"
 
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
-import { CalendarIcon } from "@radix-ui/react-icons"
-import { format } from "date-fns"
-import { Calendar } from "../ui/calendar"
-
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import { Button } from "../ui/button"
 
 import {
@@ -31,18 +21,22 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
 
-import { formatISO } from 'date-fns'
 import { useParams } from "next/navigation"
 import { taskSchema } from "@/src/schemas"
 
-const CreateTask = () => {
+import { useCreateTaskMutation } from "@/src/store/api"
 
+import { useToast } from "@/src/hooks/use-toast"
+
+const CreateTask = () => {
+    const { toast } = useToast()
     const { id } = useParams()
+
+    const [ createTask, { isLoading }] = useCreateTaskMutation()
 
     const form = useForm<z.infer<typeof taskSchema>>({
         resolver: zodResolver(taskSchema),
@@ -50,12 +44,31 @@ const CreateTask = () => {
             title: "",
             priority: "Low",
             status: "To Do",
+            tags:"",
             projectId: id.toString(),
         },
     })
 
     const onSubmit = async (values: z.infer<typeof taskSchema>) => {
-        console.log(values);
+        const taskData = {
+           ...values,
+            projectId: id as string,
+        };
+
+        try {
+            await createTask(taskData).unwrap()
+            toast({
+                title: "Task created successfully!",
+                description: `Task: ${taskData.title} with a priority of ${taskData.priority}`,
+            });
+            form.reset();
+        } catch (error) {
+            toast({
+                title: "Error creating task",
+                description: "Failed to create a task. Please try again later.",
+            })
+            console.log(error);
+        }
     }
 
   return (
@@ -158,76 +171,9 @@ const CreateTask = () => {
             )}
             />
             </div>
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
-                    <FormField
-                        control={form.control}
-                        name="startDate"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col flex-1">
-                                <FormLabel>Start Date</FormLabel>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <FormControl>
-                                            <Button
-                                                variant={'outline'}
-                                                className={`${!field.value && "text-muted-foreground"}`}>
-                                                {field.value ? (
-                                                    format(new Date(field.value), "PPP")
-                                                ) : (
-                                                    <span>Pick a date</span>
-                                                )}
-                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                            </Button>
-                                        </FormControl>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0" align="start">
-                                        <Calendar
-                                            mode="single"
-                                            selected={field.value ? new Date(field.value) : undefined}
-                                            onSelect={(date) => field.onChange(date?.toISOString())}
-                                            initialFocus
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="endDate"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col flex-1">
-                                <FormLabel>End Date</FormLabel>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <FormControl>
-                                            <Button
-                                                variant={'outline'}
-                                                className={`${!field.value && "text-muted-foreground"}`}>
-                                                {field.value ? (
-                                                    format(new Date(field.value), "PPP")
-                                                ) : (
-                                                    <span>Pick a date</span>
-                                                )}
-                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                            </Button>
-                                        </FormControl>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0" align="start">
-                                        <Calendar
-                                            mode="single"
-                                            selected={field.value ? new Date(field.value) : undefined}
-                                            onSelect={(date) => field.onChange(date?.toISOString())}
-                                            initialFocus
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-                <Button variant={'outline'} className="w-full text-myLight hover:bg-follow2 dark:hover:bg-main2 dark:text-myDark bg-follow dark:bg-main">Create Task</Button>
+                <Button variant={'outline'} className="w-full text-myLight hover:bg-follow2 dark:hover:bg-main2 dark:text-myDark bg-follow dark:bg-main">
+                    {isLoading ? 'Creating...': 'Create'}
+                    </Button>
         </form>
     </Form>
   )

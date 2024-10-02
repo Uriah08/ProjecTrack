@@ -7,7 +7,7 @@ import { useGetProjectByIdQuery } from '@/src/store/api'
 import { Button } from '@/src/components/ui/button'
 import DialogContainer from '@/src/components/containers/Dialog'
 import { Dialog, DialogTrigger } from '@/src/components/ui/dialog'
-import { ClipboardPlus, Grid3X3Icon, History, BetweenHorizonalEnd, List, Filter, EllipsisVertical } from "lucide-react"
+import { ClipboardPlus, Grid3X3Icon, History, BetweenHorizonalEnd, List, Filter, EllipsisVertical, Trash } from "lucide-react"
 import Board from '@/src/components/project/Board'
 import Timeline from '@/src/components/project/Timeline'
 import Table from '@/src/components/project/Table'
@@ -27,15 +27,26 @@ const ProjectsPage = () => {
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex flex-col gap-10">
       <div className='flex justify-between items-center'>
       <h1 className='text-3xl font-semibold'>{project?.name}</h1>
+      <div className='flex gap-3'>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={'outline'} className='dark:bg-main bg-follow text-myLight dark:text-myDark flex gap-2'>
+          <Button variant={'outline'} className='dark:bg-main bg-follow hover:bg-follow2 dark:hover:bg-main2 text-myLight dark:text-myDark flex gap-2'>
             <ClipboardPlus size={20}/>
             <span className='hidden sm:block'>Add Task</span>
           </Button>
         </DialogTrigger>
         <DialogContainer type='task'/>
       </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className='bg-red-800 flex gap-2 hover:bg-red-900'>
+            <Trash size={20}/>
+            Delete Project
+          </Button>
+        </DialogTrigger>
+        <DialogContainer type='delete'/>
+      </Dialog>
+      </div>
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2'>

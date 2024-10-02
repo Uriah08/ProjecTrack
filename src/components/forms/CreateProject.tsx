@@ -33,10 +33,13 @@ import { useSession } from "next-auth/react"
 import { formatISO } from 'date-fns'
 import { useCreateProjectMutation } from "@/src/store/api"
 
+import { useToast } from "@/src/hooks/use-toast"
 
 const CreateProject = () => {
 
     const { data: session } = useSession()
+
+    const { toast } = useToast()
 
     const [createProject, { isLoading }] = useCreateProjectMutation()
 
@@ -47,7 +50,7 @@ const CreateProject = () => {
             description: "",
             userId: "",
         },
-    })
+    });
 
     const onSubmit = async (values: z.infer<typeof projectSchema>) => {
 
@@ -60,9 +63,17 @@ const CreateProject = () => {
 
             try {
                 await createProject(projectData).unwrap()
+                toast({
+                    title: "Project Created",
+                    description: "Your project has been created successfully!",
+                })
                 form.reset();
             } catch (error) {
                 console.log(error);
+                toast({
+                    title: "Error Creating Project",
+                    description: "An error occurred while creating your project. Please try again.",
+                })
             }
     }
     

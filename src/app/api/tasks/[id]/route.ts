@@ -1,29 +1,24 @@
-// import { NextApiRequest, NextApiResponse } from 'next';
-// import { db } from "@/lib/db";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db'; 
 
-// export async function PATCH(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-//   const { id } = req.query;
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+  const taskId = params.id;
 
-//   if (req.method === 'PATCH') {
-//     try {
-//       const { status } = req.body;
+  try {
+    const { status } = await req.json();
 
-//       if (!status) {
-//         return res.status(400).json({ error: 'Status is required' });
-//       }
+    if (!status) {
+      return NextResponse.json({ error: 'Status is required' }, { status: 400 });
+    }
 
-//       const updatedTask = await db.task.update({
-//         where: { id: String(id) },
-//         data: { status },
-//       });
+    const updatedTask = await db.task.update({
+      where: { id: taskId },
+      data: { status },
+    });
 
-//       res.status(200).json(updatedTask);
-//     } catch (error) {
-//       console.error('Error updating task:', error);
-//       res.status(500).json({ error: 'An error occurred while updating the task' });
-//     }
-//   } else {
-//     res.setHeader('Allow', ['PATCH']);
-//     res.status(405).json({ message: `Method ${req.method} not allowed` });
-//   }
-// }
+    return NextResponse.json(updatedTask, { status: 200 });
+  } catch (error) {
+    console.error('Error updating task status:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}

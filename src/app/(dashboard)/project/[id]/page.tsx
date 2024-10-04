@@ -8,10 +8,11 @@ import { Button } from '@/src/components/ui/button'
 import DialogContainer from '@/src/components/containers/Dialog'
 import { Dialog, DialogTrigger } from '@/src/components/ui/dialog'
 import { ClipboardPlus, Grid3X3Icon, History, BetweenHorizonalEnd, List, Filter, EllipsisVertical, Trash } from "lucide-react"
-import Board from '@/src/components/project/Board'
 import Timeline from '@/src/components/project/Timeline'
 import Table from '@/src/components/project/Table'
 import ProjectList from '@/src/components/project/List'
+
+import Board from '@/src/components/project/Board'
 
 const ProjectsPage = () => {
 
@@ -41,7 +42,7 @@ const ProjectsPage = () => {
         <DialogTrigger asChild>
           <Button className='bg-red-800 flex gap-2 hover:bg-red-900'>
             <Trash size={20}/>
-            Delete Project
+            <span className='hidden sm:block'>Delete Project</span>
           </Button>
         </DialogTrigger>
         <DialogContainer type='delete'/>

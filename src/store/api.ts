@@ -39,13 +39,6 @@ export const projectsApi = createApi({
           ? [...result.map(({ id }) => ({ type: 'Task' as const, id })), 'Task']
           : ['Task'],
     }),
-    // getTasks: builder.query<Task[], string>({
-    //   query: (projectId) => `/projects/${projectId}/tasks`,
-    //   providesTags: (result = []) =>
-    //     result
-    //       ? [...result.map(({ id }) => ({ type: 'Task' as const, id })), 'Task']
-    //       : ['Task'],
-    // }),
     updateTaskStatus: builder.mutation<Task, { id: string; status: string }>({
       query: ({ id, status }) => ({
         url: `/tasks/${id}`,
@@ -62,6 +55,21 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: ['Task']
     }),
+    updateTask: builder.mutation<Task, { id: string; data: Partial<Task> }>({
+      query: ({ id, data }) => ({
+        url: `/tasks?taskId=${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Task', id }],
+    }),
+    deleteTask: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/tasks/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, id) => [{ type: 'Task', id }],
+    })
   }),
 });
 
@@ -72,5 +80,7 @@ export const {
   useDeleteProjectMutation,
   useCreateTaskMutation, 
   useUpdateTaskStatusMutation,
-  useGetTasksQuery
+  useGetTasksQuery,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation
 } = projectsApi;

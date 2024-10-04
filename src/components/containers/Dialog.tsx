@@ -14,6 +14,7 @@ import { Task, Project } from '@prisma/client'
 import { Sparkles } from 'lucide-react'
 import UpdateTask from '../forms/UpdateTask'
 import UpdateProject from '../forms/UpdateProject'
+import DeleteTask from './DeleteTask'
 
 type Props = {
   type: string,
@@ -98,7 +99,7 @@ const DialogContainer = ({type, task, project}: Props) => {
               This action cannot be undone.
             </DialogDescription>
         </DialogHeader>
-        <DeleteProject/>
+        <DeleteTask taskId={task?.id}/>
         </>
       )}
     </DialogContent>

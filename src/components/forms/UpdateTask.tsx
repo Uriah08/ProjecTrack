@@ -33,11 +33,16 @@ import { taskSchema } from "@/src/schemas"
 
 import { useToast } from "@/src/hooks/use-toast"
 
+import { useUpdateTaskMutation } from '@/store/api'
+
 type Props = {
     task?: Task
 }
 
 const UpdateTask = ({task}:  Props) => {
+
+    const [updateTask, { isLoading, error }] = useUpdateTaskMutation();
+
     const { toast } = useToast()
     const { id } = useParams()
 
@@ -54,7 +59,36 @@ const UpdateTask = ({task}:  Props) => {
     })
 
     const onSubmit = async (values: z.infer<typeof taskSchema>) => {
-        console.log(values);
+        try {
+            updateTask({
+                id: task?.id || "",
+                data:{
+                    title: values.title,
+                    description: values.description,
+                    priority: values.priority,
+                    status: values.status,
+                    tags: values.tags,
+                    projectId: values.projectId,
+                }
+            }).unwrap()
+            toast({
+                title: "Task updated successfully!",
+                description: `Task: ${values.title} with a priority of ${values.priority}`,
+            });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            toast({
+                title: "Error updating task",
+                description: `An error occurred while updating your task. Please try again.`,
+            })
+        }
+    }
+
+    if(error) {
+        toast({
+            title: "Error updating task",
+            description: "An error occurred while updating your task. Please try again.",
+        })
     }
   return (
     <Form {...form}>
@@ -157,7 +191,7 @@ const UpdateTask = ({task}:  Props) => {
             />
             </div>
                 <Button variant={'outline'} className="w-full text-myLight hover:bg-follow2 dark:hover:bg-main2 dark:text-myDark bg-follow dark:bg-main">
-                    Update
+                    {isLoading ? "Updating..." : "Update"}
                 </Button>
         </form>
     </Form>

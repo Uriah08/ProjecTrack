@@ -53,3 +53,30 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: `Failed to create a task. ${error}`})
     }
 }
+
+export async function PATCH(req: Request) {
+    const { searchParams } = new URL(req.url)
+    const id = searchParams.get('taskId')
+
+  const { status, title, description, tags, priority } = await req.json();
+
+  try {
+    if(!id) {
+        return NextResponse.json({ error: 'Task ID is required' }, { status: 400 });
+    }
+
+    const updatedTask = await db.task.update({
+      where: { id },
+      data: {
+        status,
+        title,
+        description,
+        tags,
+        priority,
+      },
+    });
+    return NextResponse.json(updatedTask);
+  } catch (error) {
+    return NextResponse.json({ error: `Failed to update task ${error}` }, { status: 500 });
+  }
+}

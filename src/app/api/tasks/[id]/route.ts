@@ -22,3 +22,16 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
+
+  try {
+    const deletedTask = await db.task.delete({
+      where: { id },
+    });
+    return NextResponse.json(deletedTask);
+  } catch (error) {
+    return NextResponse.json({ error: `Failed to delete task ${error}` }, { status: 500 });
+  }
+}

@@ -56,7 +56,7 @@ const TaskColumn = ({ status, tasks, moveTask }: TaskColumnProps) => {
   const tasksInColumn = tasks.filter((task) => task.status === status);
 
   return (
-    <div ref={(instance) => {drop(instance)}} className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? 'bg-blue-100' : ''}`}>
+    <div ref={(instance) => {drop(instance)}} className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? 'bg-blue-100 dark:bg-gray-800' : ''}`}>
       <div className="mb-3 flex w-full">
         <div className="flex w-full items-center justify-between rounded-lg bg-myLight dark:bg-myDark px-5 py-4">
           <h3 className="flex items-center text-lg font-semibold">{status}</h3>

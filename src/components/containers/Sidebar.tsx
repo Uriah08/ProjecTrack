@@ -10,15 +10,21 @@ import DialogContainer from './Dialog'
 
 import { useGetProjectsQuery } from '@/src/store/api'
 
+import { useSession } from 'next-auth/react'
+
 type Props = {
     sidebarOpen: boolean
 }
 
 const Sidebar = ({sidebarOpen}:Props) => {
 
+  const { data: session } = useSession()
+
   const [openProjects, setOpenProjects] = useState(true)
 
-  const { data: projects, isLoading, error } = useGetProjectsQuery();
+  const { data: projects, isLoading, error } = useGetProjectsQuery(session?.user?.id ?? '',{
+    skip: !session?.user?.id
+  });
 
   return (
     <div className={`fixed h-full min-w-[70px] md:min-w-[220px] dark:bg-myDark bg-myLight flex flex-col z-20 ${!sidebarOpen ? 'hidden':'block'}`}>

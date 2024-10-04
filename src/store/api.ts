@@ -6,13 +6,13 @@ export const projectsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   tagTypes: ['Project', 'Task'],
   endpoints: (builder) => ({
-    getProjects: builder.query<Project[], void>({
-      query: () => '/projects',
+    getProjects: builder.query<Project[], string>({
+      query: (userId) => `/projects?userId=${userId}`, // Updated API endpoint to match the Next.js API route
       providesTags: (result = []) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Project' as const, id })), 'Project']
           : ['Project'],
-    }),
+    }),    
     createProject: builder.mutation<Project, Partial<Project>>({
       query: (newProject) => ({
         url: '/projects',
@@ -40,21 +40,21 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: (result, error, id) => [{ type: 'Project', id }],
     }),
-    getTasks: builder.query<Task[], void>({
-      query: () => '/tasks',
+    getTasks: builder.query<Task[], string>({
+      query: (projectId) => `/tasks?projectId=${projectId}`,
       providesTags: (result = []) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Task' as const, id })), 'Task']
           : ['Task'],
     }),
-    updateTaskStatus: builder.mutation<Task, { id: string; status: string }>({
-      query: ({id, status}) => ({
-        url: `/tasks/${id}`,
-        method: 'PATCH',
-        body: { status },
-      }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Task', id }],
-    })
+    // updateTaskStatus: builder.mutation<Task, { id: string; status: string }>({
+    //   query: ({id, status}) => ({
+    //     url: `/tasks/${id}`,
+    //     method: 'PATCH',
+    //     body: { status },
+    //   }),
+    //   invalidatesTags: (result, error, { id }) => [{ type: 'Task', id }],
+    // })
   }),
 });
 
@@ -64,6 +64,6 @@ export const {
   useGetProjectByIdQuery, 
   useDeleteProjectMutation,
   useCreateTaskMutation, 
-  useUpdateTaskStatusMutation,
+  // useUpdateTaskStatusMutation,
   useGetTasksQuery
 } = projectsApi;

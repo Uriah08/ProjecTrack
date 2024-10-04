@@ -2,18 +2,24 @@ import { NextResponse } from "next/server";
 import { db } from "@/src/lib/db";
 import { projectSchema } from "@/src/schemas";
 
-export async function GET() {
-    try {
-        const projects = await db.project.findMany({
-          include: {
-            user: true, // Includes the user relation if you want user details as well
-          },
-        });
-    
-        return NextResponse.json(projects, { status: 200 });
-      } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch projects. ${error}` }, { status: 500 });
-      }
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url); // Extract query params
+  const userId = searchParams.get('userId'); // Get the userId from the query params
+
+  if (!userId) {
+    return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+  }
+
+  try {
+    // Fetch projects by userId
+    const projects = await db.project.findMany({
+      where: { userId },
+    });
+
+    return NextResponse.json(projects, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: `Failed to fetch projects: ${error}` }, { status: 500 });
+  }
 }
 
 export async function POST(req:Request) {

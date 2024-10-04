@@ -73,7 +73,7 @@ const ProjectsPage = () => {
         </div>
       </div>
       <div className='w-full h-fit'>
-        {openTab === 'board' && <Board/>}
+        {openTab === 'board' && <Board projectId={id.toString()}/>}
         {openTab === 'timeline' && <Timeline/>}
         {openTab === 'table' && <Table/>}
         {openTab === 'list' && <ProjectList/>}

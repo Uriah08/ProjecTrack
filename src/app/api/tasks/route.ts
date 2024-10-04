@@ -2,18 +2,46 @@ import { NextResponse } from "next/server";
 import { db } from "@/src/lib/db";
 import { taskSchema } from "@/src/schemas";
 
-export async function GET() {
+// export async function GET(req: Request) {
+//   try {
+//     const { searchParams } = new URL(req.url);
+//     const projectId = searchParams.get('projectId');
+
+//     if (!projectId) {
+//       return NextResponse.json({ error: 'Project ID is required' }, { status: 400 });
+//     }
+
+//     const tasks = await db.task.findMany({
+//       where: {
+//         projectId,
+//       },
+//     });
+
+//     return NextResponse.json(tasks, { status: 200 });
+//   } catch (error) {
+//     return NextResponse.json({ error: `Failed to fetch tasks. ${error}` }, { status: 500 });
+//   }
+// }
+
+export async function GET(req: Request) {
     try {
+        const { searchParams } = new URL(req.url)
+        const projectId = searchParams.get('projectId')
+
+        if(!projectId) {
+            return NextResponse.json({ error: 'Project ID is required' }, { status: 400 })
+        }
+
         const tasks = await db.task.findMany({
-          include: {
-            project: true, // Includes the user relation if you want user details as well
-          },
-        });
-    
-        return NextResponse.json(tasks, { status: 200 });
-      } catch (error) {
-        return NextResponse.json({ error: `Failed to fetch tasks. ${error}` }, { status: 500 });
-      }
+            where: {
+                projectId
+            }
+        })
+        
+        return NextResponse.json(tasks, { status: 200 })
+    } catch (error) {
+        return NextResponse.json({ error: `Error getting tasks ${error}` }, { status: 400 })
+    }
 }
 
 export async function POST(req: Request) {

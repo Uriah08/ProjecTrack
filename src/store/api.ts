@@ -33,12 +33,19 @@ export const projectsApi = createApi({
       invalidatesTags: (result, error, id) => [{ type: 'Project', id }],
     }),
     getTasks: builder.query<Task[], string>({
-      query: (projectId) => `/projects/${projectId}/tasks`,
+      query: (projectId) => `/tasks?projectId=${projectId}`,
       providesTags: (result = []) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Task' as const, id })), 'Task']
           : ['Task'],
     }),
+    // getTasks: builder.query<Task[], string>({
+    //   query: (projectId) => `/projects/${projectId}/tasks`,
+    //   providesTags: (result = []) =>
+    //     result
+    //       ? [...result.map(({ id }) => ({ type: 'Task' as const, id })), 'Task']
+    //       : ['Task'],
+    // }),
     updateTaskStatus: builder.mutation<Task, { id: string; status: string }>({
       query: ({ id, status }) => ({
         url: `/tasks/${id}`,

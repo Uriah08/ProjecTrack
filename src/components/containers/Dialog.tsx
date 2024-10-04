@@ -8,11 +8,23 @@ import {
 import CreateProject from '../forms/CreateProject'
 import CreateTask from '../forms/CreateTask'
 import DeleteProject from './DeleteProject'
+import AI from './AI'
+import { Task, Project } from '@prisma/client'
 
-const DialogContainer = ({type}:{type: string}) => {
+import { Sparkles } from 'lucide-react'
+import UpdateTask from '../forms/UpdateTask'
+import UpdateProject from '../forms/UpdateProject'
+
+type Props = {
+  type: string,
+  task?: Task
+  project?: Project
+}
+
+const DialogContainer = ({type, task, project}: Props) => {
   return (
     <DialogContent aria-describedby={undefined} className="sm:max-w-[500px] bg-myLight dark:bg-myDark gap-10">
-      {type === 'delete' ? (
+      {type === 'delete-project' && (
         <>
         <DialogHeader>
             <DialogTitle>
@@ -24,14 +36,69 @@ const DialogContainer = ({type}:{type: string}) => {
         </DialogHeader>
         <DeleteProject/>
         </>
-      ) : (
+      )}
+      {type === 'update-project' && (
         <>
         <DialogHeader>
             <DialogTitle>
-                {type === 'project'? 'Create Project' : 'Add Task'}
+                Update Project
             </DialogTitle>
         </DialogHeader>
-        {type === 'project' ? (<CreateProject/>): (<CreateTask/>)}
+        <UpdateProject project={project}/>
+        </>
+      )}
+      {type === 'project' && (
+        <>
+        <DialogHeader>
+            <DialogTitle>
+                Create Project
+            </DialogTitle>
+        </DialogHeader>
+        <CreateProject/>
+        </>
+      )}
+      {type === 'task' && (
+        <>
+        <DialogHeader>
+            <DialogTitle>
+                Add Task
+            </DialogTitle>
+        </DialogHeader>
+        <CreateTask/>
+        </>
+      )}
+      {type === 'AI' && (
+        <>
+        <DialogHeader>
+            <DialogTitle className='flex items-center gap-3'>
+              <Sparkles size={30} className='text-follow dark:text-main'/>
+                <span className='font-semibold text-main'>Projec<span className='text-follow'>Track AI</span></span>
+            </DialogTitle>
+        </DialogHeader>
+        <AI task={task}/>
+        </>
+      )}
+      {type === 'update-task' && (
+        <>
+        <DialogHeader>
+          <DialogTitle>
+                Update Task
+            </DialogTitle>
+        </DialogHeader>
+        <UpdateTask task={task}/>
+        </>
+      )}
+      {type === 'delete-task' && (
+        <>
+        <DialogHeader>
+            <DialogTitle>
+              Are you sure you want to delete this task?
+            </DialogTitle>
+            <DialogDescription className='pt-5'>
+              This action cannot be undone.
+            </DialogDescription>
+        </DialogHeader>
+        <DeleteProject/>
         </>
       )}
     </DialogContent>

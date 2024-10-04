@@ -2,6 +2,28 @@ import { NextResponse } from "next/server";
 import { db } from "@/src/lib/db";
 import { taskSchema } from "@/src/schemas";
 
+export async function GET(req: Request) {
+
+    const { searchParams } = new URL(req.url)
+    const projectId = searchParams.get('projectId')
+
+    try {
+        if (!projectId) {
+            return NextResponse.json({ error: 'Project ID is required' }, { status: 400 });
+        }
+        
+        const tasks = await db.task.findMany({
+          where: {
+            projectId: projectId
+          }
+        });
+    
+        return NextResponse.json(tasks, { status: 200 });
+      } catch (error) {
+        return NextResponse.json({ error: `Failed to fetch tasks. ${error}` }, { status: 500 });
+      }
+}
+
 export async function POST(req: Request) {
 
     const body = await req.json()

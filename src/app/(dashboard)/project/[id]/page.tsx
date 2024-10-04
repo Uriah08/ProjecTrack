@@ -38,6 +38,15 @@ const ProjectsPage = () => {
         </DialogTrigger>
         <DialogContainer type='task'/>
       </Dialog>
+      {/* <Dialog>
+        <DialogTrigger asChild>
+          <Button className='bg-yellow-500 flex gap-2 hover:bg-yellow-600'>
+            <Pencil size={20}/>
+            <span className='hidden sm:block'>Update Project</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContainer type='update-project' project={project}/>
+      </Dialog> */}
       <Dialog>
         <DialogTrigger asChild>
           <Button className='bg-red-800 flex gap-2 hover:bg-red-900'>
@@ -45,7 +54,7 @@ const ProjectsPage = () => {
             <span className='hidden sm:block'>Delete Project</span>
           </Button>
         </DialogTrigger>
-        <DialogContainer type='delete'/>
+        <DialogContainer type='delete-project'/>
       </Dialog>
       </div>
       </div>

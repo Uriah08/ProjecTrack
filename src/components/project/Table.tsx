@@ -1,8 +1,15 @@
-import React from 'react'
+"use client";
 
-const Table = () => {
+import { DataTableDemo } from "../table/data-table";
+
+type Props = {
+  projectId: string
+}
+
+const Table = ({projectId}: Props) => {
+
   return (
-    <div>Table</div>
+    <DataTableDemo />
   )
 }
 

@@ -1,10 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Project, Task } from '@prisma/client';
 
+interface AIResponse {
+  data: {
+    text: string;
+  };
+}
+
 export const projectsApi = createApi({
   reducerPath: 'projectsApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  tagTypes: ['Project', 'Task'],
+  tagTypes: ['Project', 'Task','AI'],
   endpoints: (builder) => ({
     getProjects: builder.query<Project[], string>({
       query: (userId) => `/projects?userId=${userId}`, // Updated API endpoint to match the Next.js API route
@@ -69,7 +75,15 @@ export const projectsApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: (result, error, id) => [{ type: 'Task', id }],
-    })
+    }),
+    askAI: builder.mutation<AIResponse, { title: string }>({
+      query: ({ title }) => ({
+        url: '/ask',
+        method: 'POST',
+        body: { title  },
+      }),
+      invalidatesTags: ['AI'], // Invalidate the 'AI' tag after this mutation
+    }),
   }),
 });
 
@@ -82,5 +96,6 @@ export const {
   useUpdateTaskStatusMutation,
   useGetTasksQuery,
   useUpdateTaskMutation,
-  useDeleteTaskMutation
+  useDeleteTaskMutation,
+  useAskAIMutation
 } = projectsApi;

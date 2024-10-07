@@ -13,4 +13,4 @@ const Table = ({projectId}: Props) => {
   )
 }
 
-export default Table
+export default Table;

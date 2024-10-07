@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.className} antialiased`}
+        className={`${fontSans.className} antialiased bg-myLightFollow dark:bg-myDarkFollow`}
       >
         <Provider>
         {children}

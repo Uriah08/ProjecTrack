@@ -1,39 +1,79 @@
-import SignOut from "@/src/components/sign-out";
-import { auth } from "@/auth";
+"use client"
 
-export default async function Home() {
+import React from 'react'
+import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { FolderPlus } from 'lucide-react';
+import DashboardCard from '@/components/charts/DashboardCard';
 
-  const session = await auth()
+import { Book, BookMarked, BookX, BookCheck } from 'lucide-react';
+import CountChart from '@/components/charts/CountChart';
+import StatusChart from '@/components/charts/StatusChart';
+import ProjectChart from '@/components/charts/ProjectChart';
+import { Calendar } from '@/components/ui/calendar';
+import { useGetProjectsQuery } from '@/store/api';
+import ProjectSection from '@/components/charts/ProjectSection';
+
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import DialogContainer from '@/components/containers/Dialog';
+import Time from '@/components/charts/Time';
+import Recommendation from '@/components/charts/Recommendation';
+import LoadingSpinner from '@/components/containers/LoadingSpinner';
+
+export default function Home() {
+
+  const { data: session} = useSession()
+
+  const { data: projects, isLoading } = useGetProjectsQuery(session?.user?.id ?? '',{
+    skip: !session?.user?.id
+  });
+
+  if(!session) {
+    return (
+      <LoadingSpinner/>
+    )
+  }
 
   return (
-    <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex md:flex-row flex-col gap-8">
-      {/* <div className="w-full lg:w-2/3">
-        <div className="w-full h-[100px] bg-[#cdd5da] dark:bg-[#444444] rounded-2xl">
-
+    <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex xl:flex-row flex-col gap-8">
+      <div className='w-full flex flex-col xl:w-2/3 h-fit gap-5'>
+        <div className='w-full dark:bg-myDark gap-5 p-5 rounded-xl flex justify-between items-center shadow-sm bg-myLight'>
+          <h1 className='text-xl xl:text-2xl font-bold'>Hi <span className='text-follow dark:text-main'>{session?.user?.name}!</span> Welcome to ProjecTrack</h1>
+          <Dialog>
+            <DialogTrigger asChild>
+            <Button className='dark:bg-main bg-follow gap-2'>
+            <FolderPlus size={20}/> <span className='hidden md:block'>Create Project</span>
+            </Button>
+            </DialogTrigger>
+            <DialogContainer type='project'/>
+          </Dialog>
         </div>
-        <div className="flex gap-4 justify-between flex-wrap mt-5">
-          <DashboardCard/>
-          <DashboardCard/>
-          <DashboardCard/>
-          <DashboardCard/>
+        <div className='flex flex-wrap w-full gap-5'>
+        <DashboardCard label='Current' icon={Book}/>
+        <DashboardCard label='Finished' icon={BookCheck}/>
+        <DashboardCard label='Late' icon={BookMarked}/>
+        <DashboardCard label='Cancelled' icon={BookX}/>
         </div>
-        <div className="flex gap-4">
-          <div className="w-1/2 h-[500px] bg-[#cdd5da] dark:bg-[#444444] mt-5 rounded-2xl">
-
+        <div className='flex xl:flex-row flex-col gap-5'>
+          <div className='flex-1'>
+            <CountChart/>
           </div>
-          <div className="w-1/2 h-[500px] bg-[#cdd5da] dark:bg-[#444444] mt-5 rounded-2xl">
-
+          <div className='flex-1'>
+            <StatusChart/>
           </div>
         </div>
-        <div className="h-[300px] bg-[#cdd5da] dark:bg-[#444444] mt-5 rounded-2xl w-full"></div>
+        <div className='flex w-full h-[500px]'>
+          <ProjectChart/>
+        </div>
       </div>
-      <div className="w-full lg:w-1/3 flex-col">
-        <div className="w-full bg-[#cdd5da] dark:bg-[#444444] ">
-
+      <div className='w-full xl:w-1/3 gap-5 flex flex-col'>
+        <div className='flex gap-5'>
+        <Calendar/>
+        <Time/>
         </div>
-      </div> */}
-      <h1>{JSON.stringify(session)}</h1>
-      <SignOut/>
+        <ProjectSection projects={projects || []} isLoading={isLoading}/>
+        <Recommendation/>
+      </div>
     </div>
   );
 };

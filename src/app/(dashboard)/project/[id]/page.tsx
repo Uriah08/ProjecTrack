@@ -12,6 +12,7 @@ import Table from '@/src/components/project/Table'
 import ProjectList from '@/src/components/project/List'
 
 import Board from '@/src/components/project/Board'
+import LoadingSpinner from '@/components/containers/LoadingSpinner'
 
 const ProjectsPage = () => {
 
@@ -20,7 +21,10 @@ const ProjectsPage = () => {
 
   const [openTab, setOpenTab] = React.useState('board')
 
-  if (isLoading) return <div className='bg-myLightFollow dark:bg-myDarkFollow h-full'>Loading...</div>
+  if(isLoading) {
+    return <LoadingSpinner/>
+  }
+  
   if (error) return <div className='bg-myLightFollow dark:bg-myDarkFollow h-full'>Error fetching data</div>
 
   return (

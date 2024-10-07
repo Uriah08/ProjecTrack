@@ -23,6 +23,12 @@ const List = ({projectId}: Props) => {
     return <div>Error fetching tasks</div>
   }
 
+  if(tasks?.length === 0) {
+    return <div className='w-full h-full flex justify-center items-center'>
+      <h1 className='text-5xl font-bold mt-36 opacity-25'>No Tasks Found</h1>
+    </div>
+  }
+
   return (
     <div className='grid grid-cols-1 lg:grid-cols-2 w-full gap-5'>
       {tasks?.map((task) => (
@@ -33,7 +39,7 @@ const List = ({projectId}: Props) => {
             <h1 className='text-xl lg:text-2xl font-bold'>{task.title}</h1>
             <p className='text-zinc-600 dark:text-zinc-400 text-base'>{task.description}</p>
             <div className='flex items-center gap-3'>
-              <div className='p-2 bg-main rounded-lg'>
+              <div className='p-2 dark:bg-main bg-follow rounded-lg'>
                 <h1 className='w-fit dark:text-myDark text-myLight font-semibold '>{task.priority}</h1>
               </div>
               {task.tags ? task.tags.split(",").map((tag) => <p key={tag}>{tag}</p>) : []}

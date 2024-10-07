@@ -77,13 +77,11 @@ html,body,:root{
   }
 }
 
-
 ::-webkit-scrollbar {
   width: 7px; 
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--main); 
-  border-radius: 7px;
 }
 

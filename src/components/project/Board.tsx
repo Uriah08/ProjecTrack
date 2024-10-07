@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from '../ui/dialog';
 import DialogContainer from '../containers/Dialog';
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Skeleton } from '../ui/skeleton';
 
 type Props = {
   projectId: string;
@@ -43,10 +44,6 @@ const Board = ({ projectId }: Props) => {
     return <div>Error fetching tasks</div>;
   }
 
-  if(isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <DndProvider backend={backend}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -54,6 +51,22 @@ const Board = ({ projectId }: Props) => {
           <TaskColumn key={status} status={status} tasks={tasks} moveTask={moveTask} />
         ))}
       </div>
+      {isLoading && (
+        <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-4 px-2">
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        <Skeleton className='w-full h-[180px]'/>
+        </div>
+      )}
+      {tasks.length === 0 && !isLoading && (
+      <div className='w-full h-full flex justify-center items-center'>
+        <h1 className='text-5xl font-bold mt-36 opacity-25'>No Tasks Found</h1>
+      </div>)}
     </DndProvider>
   );
 };

@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,20 +20,13 @@ import { Button } from "../ui/button"
 
 import { projectSchema } from "@/src/schemas"
 
-
-import { useToast } from "@/src/hooks/use-toast"
 import { Project } from '@prisma/client'
-
-import { formatISO } from 'date-fns'
 
 type Props = {
     project?: Project
 }
 
 const UpdateProject = ({project}: Props) => {
-
-    const { toast } = useToast()
-
 
     const form = useForm<z.infer<typeof projectSchema>>({
         resolver: zodResolver(projectSchema),

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import SidebarLinks from './SidebarLinks'
-import { Folder, Ban, Gauge, FolderPlus, Search, Clock, Users, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
+import { Folder, Ban, Gauge, FolderPlus, Search, Clock, FileChartColumn, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
 import DialogContainer from './Dialog'
@@ -49,18 +49,18 @@ const Sidebar = ({sidebarOpen}:Props) => {
         <SidebarLinks label='Dashboard' icon={Gauge} link='/'/>
         <SidebarLinks label='Search' icon={Search} link='/search'/>
         <SidebarLinks label='Timeline' icon={Clock} link='/timeline'/>
-        <SidebarLinks label='Group' icon={Users} link='/group'/>
+        <SidebarLinks label='Status' icon={FileChartColumn} link='/status'/>
         <SidebarLinks label='Settings' icon={Settings} link='/settings'/>
       
 
         <div className='px-5 pt-5 pb-3'>
         <h1 className='text-xs hidden md:block'>Priority</h1>
         </div>
-        <SidebarLinks label='Urgent' icon={TriangleAlert} link='/category/technology'/>
-        <SidebarLinks label='High' icon={OctagonAlert} link='/category/design'/>
-        <SidebarLinks label='Medium' icon={CircleAlert} link='/category/business'/>
-        <SidebarLinks label='Low' icon={ShieldAlert} link='/category/education'/>
-        <SidebarLinks label='Backlog' icon={SquareLibrary} link='/category/health'/>
+        <SidebarLinks label='Urgent' icon={TriangleAlert} link='/priority/urgent'/>
+        <SidebarLinks label='High' icon={OctagonAlert} link='/priority/high'/>
+        <SidebarLinks label='Medium' icon={CircleAlert} link='/priority/medium'/>
+        <SidebarLinks label='Low' icon={ShieldAlert} link='/priority/low'/>
+        <SidebarLinks label='Backlog' icon={SquareLibrary} link='/priority/backlog'/>
         <div className='px-5 py-3 flex pt-8 justify-center md:justify-between cursor-pointer' onClick={() => setOpenProjects(!openProjects)}>
         <h1 className='text-xs hidden md:block'>Projects</h1>
           {openProjects ? <ChevronUp size={15}/> : <ChevronDown size={15}/>}

@@ -25,7 +25,7 @@ export const projectsApi = createApi({
         method: 'POST',
         body: newProject,
       }),
-      invalidatesTags: ['Project'], // This tells RTK Query to refetch the projects after creating a new one
+      invalidatesTags: ['Project'], 
     }),
     getProjectById: builder.query<Project, string>({
       query: (id) => `/projects/${id}`,
@@ -37,6 +37,14 @@ export const projectsApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: (result, error, id) => [{ type: 'Project', id }],
+    }),
+    updateProjectStatus: builder.mutation<Project, { id: string, status: string }>({
+      query: ({ id, status }) => ({
+        url: `/projects/${id}`,
+        method: 'PATCH',
+        body: { status },
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Project', id }],
     }),
     getTasks: builder.query<Task[], string>({
       query: (projectId) => `/tasks?projectId=${projectId}`,
@@ -97,5 +105,6 @@ export const {
   useGetTasksQuery,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
-  useAskAIMutation
+  useAskAIMutation,
+  useUpdateProjectStatusMutation
 } = projectsApi;

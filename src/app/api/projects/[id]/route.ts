@@ -59,3 +59,25 @@ export async function DELETE(req: Request, { params }: Props) {
       return NextResponse.json({ error: `Failed to delete project. ${error}` }, { status: 500 });
     }
   }
+
+  export async function PATCH(req: Request, { params }: Props) {
+
+    const { id } = params;
+
+    try {
+      const { status } = await req.json();
+  
+      if (!id || !status) {
+        return NextResponse.json({ error: 'Missing id or status' }, { status: 400 });
+      }
+  
+      const updatedProject = await db.project.update({
+        where: { id },
+        data: { status },
+      });
+  
+      return NextResponse.json({ data: updatedProject }, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ error: `Failed to update project. ${error}` }, { status: 500 });
+    }
+  }

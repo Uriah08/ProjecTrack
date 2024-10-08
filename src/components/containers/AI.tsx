@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect } from 'react';
 import { useAskAIMutation } from '@/store/api';
 import { Task } from '@prisma/client';
@@ -5,7 +7,7 @@ import { Task } from '@prisma/client';
 import { Skeleton } from '../ui/skeleton';
 
 type Props = {
-  task: Task;
+  task?: Task;
 };
 
 
@@ -23,7 +25,7 @@ const AI = ({ task }: Props) => {
 
   return (
     <div className='flex flex-col justify-center items-center p-4'>
-      <h1 className='text-2xl font-bold mb-4'>{task.title}</h1>
+      <h1 className='text-2xl font-bold mb-4'>{task?.title}</h1>
 
       {isLoading && <Skeleton className='w-full h-[100px]'/>}
 

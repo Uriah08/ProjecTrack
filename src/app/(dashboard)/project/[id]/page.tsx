@@ -3,7 +3,7 @@
 import React from 'react'
 import { useParams } from 'next/navigation'
 
-import { useGetProjectByIdQuery } from '@/src/store/api'
+import { useGetProjectByIdQuery, useUpdateProjectStatusMutation } from '@/src/store/api'
 import { Button } from '@/src/components/ui/button'
 import DialogContainer from '@/src/components/containers/Dialog'
 import { Dialog, DialogTrigger } from '@/src/components/ui/dialog'
@@ -20,6 +20,27 @@ const ProjectsPage = () => {
   const { data: project, isLoading, error} = useGetProjectByIdQuery(id.toString())
 
   const [openTab, setOpenTab] = React.useState('board')
+
+  const [updateProjectStatus] = useUpdateProjectStatusMutation();
+
+  React.useEffect(() => {
+      const updateLateStatus = async () => {
+        if (project?.endDate) {
+          const currentDate = new Date()
+          const projectEndDate = new Date(project.endDate);
+  
+          if (!['Finished', 'Cancelled'].includes(project.status) && currentDate > projectEndDate) {
+            try {
+              await updateProjectStatus({ id: project.id, status: 'Late' }).unwrap();
+            } catch (error) {
+              console.error('Failed to update the project status:', error);
+            }
+          }
+        }
+      };
+  
+      updateLateStatus();
+  },[updateProjectStatus, project?.id, project?.status, project?.endDate])
 
   if(isLoading) {
     return <LoadingSpinner/>
@@ -41,9 +62,18 @@ const ProjectsPage = () => {
         </DialogTrigger>
         <DialogContainer type='task'/>
       </Dialog>
+      {/* <Dialog>
+        <DialogTrigger asChild>
+          <Button className='bg-green-600 flex gap-2 hover:bg-green-700' disabled={project?.status === 'Finished'}>
+            <FolderCheck size={20}/>
+            <span className='hidden sm:block'>Finish Project</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContainer type='finish-project'/>
+      </Dialog> */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button className='bg-red-800 flex gap-2 hover:bg-red-900'>
+          <Button className='bg-red-600 flex gap-2 hover:bg-red-700'>
             <Trash size={20}/>
             <span className='hidden sm:block'>Delete Project</span>
           </Button>

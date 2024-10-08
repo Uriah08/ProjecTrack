@@ -24,7 +24,7 @@ export default function Home() {
 
   const { data: session} = useSession()
 
-  const { data: projects, isLoading } = useGetProjectsQuery(session?.user?.id ?? '',{
+  const { data: projects = [], isLoading } = useGetProjectsQuery(session?.user?.id ?? '',{
     skip: !session?.user?.id
   });
 
@@ -33,6 +33,13 @@ export default function Home() {
       <LoadingSpinner/>
     )
   }
+
+  const statuses = [
+    {label: 'Current', color: 'blue-500', icon: Book},
+    {label: 'Finished', color: 'green-500', icon: BookCheck},
+    {label: 'Late', color: 'yellow-500', icon: BookMarked},
+    {label: 'Cancelled', color: 'red-500', icon: BookX}
+  ]
 
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex xl:flex-row flex-col gap-8">
@@ -49,10 +56,9 @@ export default function Home() {
           </Dialog>
         </div>
         <div className='flex flex-wrap w-full gap-5'>
-        <DashboardCard label='Current' icon={Book}/>
-        <DashboardCard label='Finished' icon={BookCheck}/>
-        <DashboardCard label='Late' icon={BookMarked}/>
-        <DashboardCard label='Cancelled' icon={BookX}/>
+          {statuses.map(({label,color, icon}) => (
+            <DashboardCard key={label} label={label} color={color} icon={icon} projects={projects?.filter(project => project.status === label).length}/>
+          ))}
         </div>
         <div className='flex xl:flex-row flex-col gap-5'>
           <div className='flex-1'>
@@ -71,7 +77,7 @@ export default function Home() {
         <Calendar/>
         <Time/>
         </div>
-        <ProjectSection projects={projects || []} isLoading={isLoading}/>
+        <ProjectSection projects={projects || []} isLoading={isLoading} statuses={statuses}/>
         <Recommendation/>
       </div>
     </div>

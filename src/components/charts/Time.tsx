@@ -21,7 +21,7 @@ const Time: React.FC = () => {
     <div className="h-full w-full bg-follow dark:bg-main rounded-xl flex flex-col items-center justify-center">
       <h1 className="text-xl font-bold">{day}</h1>
       <div className="flex space-x-2 text-2xl font-normal">
-        <span>{hours} : {minutes} : {seconds} {ampm}</span>
+        <span className='text-center'>{hours} : {minutes} : {seconds} {ampm}</span>
       </div>
     </div>
   );

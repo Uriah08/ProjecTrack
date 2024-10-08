@@ -15,6 +15,8 @@ import { Sparkles } from 'lucide-react'
 import UpdateTask from '../forms/UpdateTask'
 import UpdateProject from '../forms/UpdateProject'
 import DeleteTask from './DeleteTask'
+import FinishProject from './FinishProject'
+import SearchContainer from './SearchContainer'
 
 type Props = {
   type: string,
@@ -31,11 +33,18 @@ const DialogContainer = ({type, task, project}: Props) => {
             <DialogTitle>
               Are you sure you want to delete this project?
             </DialogTitle>
-            <DialogDescription className='pt-5'>
-              Make sure to delete all the task before deleting the project
-            </DialogDescription>
         </DialogHeader>
         <DeleteProject/>
+        </>
+      )}
+      {type === 'finish-project' && (
+        <>
+        <DialogHeader>
+            <DialogTitle>
+              Are you sure you want to set this project to finish?
+            </DialogTitle>
+        </DialogHeader>
+        <FinishProject/>
         </>
       )}
       {type === 'update-project' && (
@@ -101,6 +110,9 @@ const DialogContainer = ({type, task, project}: Props) => {
         </DialogHeader>
         <DeleteTask taskId={task?.id}/>
         </>
+      )}
+      {type === 'search' && (
+        <SearchContainer/>
       )}
     </DialogContent>
   )

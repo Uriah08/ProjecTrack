@@ -28,10 +28,6 @@ export default function Home() {
     skip: !session?.user?.id
   });
 
-  console.log(projects);
-  
-  
-
   if(!session) {
     return (
       <LoadingSpinner/>
@@ -69,11 +65,11 @@ export default function Home() {
             <CountChart projects={projects}/>
           </div>
           <div className='flex-1'>
-            <StatusChart/>
+            <StatusChart projects={projects}/>
           </div>
         </div>
         <div className='flex w-full h-[500px]'>
-          <ProjectChart/>
+          <ProjectChart projects={projects}/>
         </div>
       </div>
       <div className='w-full xl:w-1/3 gap-5 flex flex-col'>

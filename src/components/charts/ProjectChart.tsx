@@ -1,92 +1,56 @@
-"use client"
+"use client";
 
-import { LineChart, Line, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Project } from '@prisma/client';
+import { LineChart, Line, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { format } from 'date-fns';
 
-const data = [
-  {
-    name: 'Jan',
-    income: 3400,
-    expense: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Feb',
-    income: 3400,
-    expense: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Mar',
-    income: 3400,
-    expense: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Apr',
-    income: 3400,
-    expense: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'May',
-    income: 3400,
-    expense: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Jun',
-    income: 3400,
-    expense: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Jul',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Aug',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Sep',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Oct',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Nov',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Dec',
-    income: 3400,
-    expense: 4300,
-    amt: 2100,
-  },
-];
+type Props = {
+  projects: Project[];
+};
 
-const ProjectChart = () => {
+interface CustomTooltipProps {
+  active?: boolean; // active can be optional
+  payload?: Array<{
+    payload: {
+      name: string;
+      projects: number;
+    };
+    value: number;
+  }>;
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-myDarkFollow border border-gray-300 rounded-lg p-2 shadow-lg">
+        <p className="dark:text-myLight text-myDark font-semibold">{`${payload[0].payload.name}`}</p>
+        <p className="dark:text-myLight text-myDark">{`Projects: ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const ProjectChart = ({ projects = [] }: Props) => {
+  const monthCounts = Array(12).fill(0);
+
+  projects.forEach(project => {
+    const month = new Date(project.startDate).getMonth();
+    monthCounts[month] += 1;
+  });
+
+  const data = monthCounts.map((count, index) => ({
+    name: format(new Date(0, index), 'MMM'),
+    projects: count,
+  }));
+
   return (
     <div className="bg-myLight dark:bg-myDark rounded-xl w-full h-full p-4">
-        <div className="flex justify-between items-center">
-            <h1 className="text-lg font-semibold">Your Project Status</h1>
-        </div>
-        <ResponsiveContainer width="100%" height="90%">
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg font-semibold">Your Project Status</h1>
+      </div>
+      <ResponsiveContainer width="100%" height="90%">
         <LineChart
-          width={500}
-          height={300}
           data={data}
           margin={{
             top: 5,
@@ -95,15 +59,13 @@ const ProjectChart = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" color='#151515'/>
-          <Tooltip />
-          <Legend align='center' verticalAlign='top' wrapperStyle={{paddingTop:"10px", paddingBottom:"30px"}}/>
-          <Line type="monotone" dataKey="income" stroke="#F0406F" activeDot={{ r: 3 }} strokeWidth={1}/>
-          <Line type="monotone" dataKey="expense" stroke="#4D9AD0" strokeWidth={1}/>
+          <Tooltip content={<CustomTooltip />} />
+          <Legend align='center' verticalAlign='top' wrapperStyle={{ paddingTop: "10px", paddingBottom: "30px" }} />
+          <Line type="monotone" dataKey="projects" stroke="#F0406F" activeDot={{ r: 3 }} strokeWidth={1} />
         </LineChart>
       </ResponsiveContainer>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectChart
+export default ProjectChart;

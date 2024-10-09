@@ -24,36 +24,36 @@ import Image from 'next/image'
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Create Project",
-    href: "/docs/primitives/alert-dialog",
+    href: "/help",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Create Task",
-    href: "/docs/primitives/hover-card",
+    href: "/help",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Drag and Drop Task",
-    href: "/docs/primitives/progress",
+    href: "/help",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Real Time Dashboard",
-    href: "/docs/primitives/scroll-area",
+    href: "/help",
     description: "Visually or semantically separates content.",
   },
   {
     title: "Manage Tasks",
-    href: "/docs/primitives/tabs",
+    href: "/help",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
     title: "AI Powered",
-    href: "/docs/primitives/tooltip",
+    href: "/help",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
@@ -86,13 +86,13 @@ const Recommendation = () => {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
+              <ListItem href="/help" title="Introduction">
                 Welcome to our Task Management Web App!
               </ListItem>
-              <ListItem href="/docs/installation" title="Dashboard Overview">
+              <ListItem href="/help" title="Dashboard Overview">
                 After logging in, you will be taken to the Dashboard
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Projects">
+              <ListItem href="/help" title="Projects">
               Start by clicking the &quot;Create Project&quot; button, give your project a title, and set a due date
               </ListItem>
             </ul>

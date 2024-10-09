@@ -13,7 +13,7 @@ export const projectsApi = createApi({
   tagTypes: ['Project', 'Task','AI'],
   endpoints: (builder) => ({
     getProjects: builder.query<Project[], string>({
-      query: (userId) => `/projects?userId=${userId}`, // Updated API endpoint to match the Next.js API route
+      query: (userId) => `/projects?userId=${userId}`,
       providesTags: (result = []) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Project' as const, id })), 'Project']
@@ -90,7 +90,7 @@ export const projectsApi = createApi({
         method: 'POST',
         body: { title  },
       }),
-      invalidatesTags: ['AI'], // Invalidate the 'AI' tag after this mutation
+      invalidatesTags: ['AI'],
     }),
   }),
 });

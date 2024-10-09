@@ -28,6 +28,10 @@ export default function Home() {
     skip: !session?.user?.id
   });
 
+  console.log(projects);
+  
+  
+
   if(!session) {
     return (
       <LoadingSpinner/>
@@ -39,7 +43,7 @@ export default function Home() {
     {label: 'Finished', color: 'green-500', icon: BookCheck},
     {label: 'Late', color: 'yellow-500', icon: BookMarked},
     {label: 'Cancelled', color: 'red-500', icon: BookX}
-  ]
+  ]  
 
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex xl:flex-row flex-col gap-8">
@@ -62,7 +66,7 @@ export default function Home() {
         </div>
         <div className='flex xl:flex-row flex-col gap-5'>
           <div className='flex-1'>
-            <CountChart/>
+            <CountChart projects={projects}/>
           </div>
           <div className='flex-1'>
             <StatusChart/>

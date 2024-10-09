@@ -37,8 +37,8 @@ const ProjectSection = ({projects, isLoading, statuses}: Props) => {
         )}
         <div className='flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-3 pt-3'>
         {projects && [...projects].reverse().map((project) => (
-        <Link href={`/project/${project.id}`} key={project.id} className='relative p-5 flex justify-between bg-myLight dark:bg-zinc-800 rounded-lg border-t-4 border-follow dark:border-main hover:-translate-y-1 duration-200 transition-all'>
-            <div className='absolute w-full h-[5px] -top-[2px] xl:-top-[5px] left-0 bg-main -z-10 blur-sm hover:blur-xl rounded-full duration-200 transition-all'/>
+        <Link href={`/project/${project.id}`} key={project.id} className='relative p-5 flex justify-between bg-zinc-200 dark:bg-zinc-800 rounded-lg border-t-4 border-follow dark:border-main hover:-translate-y-1 duration-200 transition-all'>
+            <div className='absolute w-full h-[5px] -top-[2px] xl:-top-[5px] left-0 dark:bg-main bg-follow -z-10 blur-sm hover:blur-xl rounded-full duration-200 transition-all'/>
             <div className='flex gap-2 items-center'>
                     <div className={`h-3 w-3 rounded-full ${project.status === 'Current' ? 'bg-blue-500': project.status === 'Finished' ? 'bg-green-500':project.status === 'Late' ? 'bg-yellow-500':'bg-red-500'}`}/>
                 <h1 className='text-xl font-medium'>{project.name}</h1>

@@ -14,7 +14,13 @@ export async function GET(req: Request) {
     // Fetch projects by userId
     const projects = await db.project.findMany({
       where: { userId },
+      include: {
+        _count: {
+          select: { tasks: true },
+        },
+      },
     });
+    
 
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {

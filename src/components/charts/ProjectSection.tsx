@@ -35,7 +35,7 @@ const ProjectSection = ({projects, isLoading, statuses}: Props) => {
                 <h1 className='text-5xl font-bold my-16 opacity-25'>No Projects Found</h1>
             </div>
         )}
-        <div className='flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-3 pt-3'>
+        <div className='flex flex-col gap-3 max-h-[200px] overflow-y-auto pr-3 pt-3'>
         {projects && [...projects].reverse().map((project) => (
         <Link href={`/project/${project.id}`} key={project.id} className='relative p-5 flex justify-between bg-zinc-200 dark:bg-zinc-800 rounded-lg border-t-4 border-follow dark:border-main hover:-translate-y-1 duration-200 transition-all'>
             <div className='absolute w-full h-[5px] -top-[2px] xl:-top-[5px] left-0 dark:bg-main bg-follow -z-10 blur-sm hover:blur-xl rounded-full duration-200 transition-all'/>

@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex xl:flex-row flex-col gap-8">
       <div className='w-full flex flex-col xl:w-2/3 h-fit gap-5'>
-        <div className='w-full dark:bg-myDark gap-5 p-5 rounded-xl flex justify-between items-center shadow-sm bg-myLight'>
+        <div className='w-full dark:bg-myDark gap-5 p-5 rounded-xl flex justify-between items-center shadow-md bg-myLight'>
           <h1 className='text-xl xl:text-2xl font-bold'>Hi <span className='text-follow dark:text-main'>{session?.user?.name}!</span> Welcome to ProjecTrack</h1>
           <Dialog>
             <DialogTrigger asChild>
@@ -61,14 +61,14 @@ export default function Home() {
           ))}
         </div>
         <div className='flex xl:flex-row flex-col gap-5'>
-          <div className='flex-1'>
+          <div className='flex-1 shadow-md rounded-lg'>
             <CountChart projects={projects}/>
           </div>
-          <div className='flex-1'>
+          <div className='flex-1 shadow-md rounded-lg'>
             <StatusChart projects={projects}/>
           </div>
         </div>
-        <div className='flex w-full h-[500px]'>
+        <div className='flex w-full h-[500px] shadow-md rounded-lg'>
           <ProjectChart projects={projects}/>
         </div>
       </div>

@@ -24,9 +24,15 @@ export default function Home() {
 
   const { data: session} = useSession()
 
-  const { data: projects = [], isLoading } = useGetProjectsQuery(session?.user?.id ?? '',{
+  const { data: projects = [], isLoading, refetch } = useGetProjectsQuery(session?.user?.id ?? '',{
     skip: !session?.user?.id
   });
+
+  React.useEffect(() => {
+    if (session?.user?.id) {
+      refetch();
+    }
+  }, [refetch, session?.user?.id]);
 
   if(!session) {
     return (

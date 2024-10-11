@@ -62,7 +62,6 @@ const components: { title: string; href: string; description: string }[] = [
 const Recommendation = () => {
   return (
     <div className='flex flex-col'>
-        <h1 className='text-xl font-bold mb-5'>Recommendation</h1>
         <div className='flex w-full justify-center'>
       <NavigationMenu className='w-full'>
       <NavigationMenuList className='flex justify-between'>
@@ -81,7 +80,7 @@ const Recommendation = () => {
                       <h1 className='text-main'>Projec<span className='text-follow'>Track</span></h1>
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Simplify your project management for better efficiency and improvements.
+                      Simplify your project by the better management and efficiency of ProjecTrack.
                     </p>
                   </a>
                 </NavigationMenuLink>
@@ -124,11 +123,26 @@ const Recommendation = () => {
       </NavigationMenuList>
     </NavigationMenu>
     </div>
+    <h1 className='text-xl font-bold mb-5 mt-3'>FAQ</h1>
+    <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Is it free?</AccordionTrigger>
+            <AccordionContent>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>Can I collaborate with other users?</AccordionTrigger>
+            <AccordionContent>
+            Currently, the app is designed for individual use. We plan to introduce collaboration features in future updates.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-
+    <h1 className='text-xl font-bold mb-5 mt-3'>How to create good projects?</h1>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+            <AccordionTrigger>Is it free?</AccordionTrigger>
             <AccordionContent>
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>

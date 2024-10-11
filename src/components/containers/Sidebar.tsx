@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import SidebarLinks from './SidebarLinks'
-import { Folder, Ban, Gauge, FolderPlus, Search, Clock, FileChartColumn, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
+import { Folder, Ban, Gauge, FolderPlus, FileQuestion, Clock, FileChartColumn, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
 import DialogContainer from './Dialog'
@@ -47,7 +47,7 @@ const Sidebar = ({sidebarOpen}:Props) => {
 
         <div className='py-2'/>
         <SidebarLinks label='Dashboard' icon={Gauge} link='/'/>
-        <SidebarLinks label='Search' icon={Search} link='/search'/>
+        <SidebarLinks label='Help' icon={FileQuestion} link='/help'/>
         <SidebarLinks label='Timeline' icon={Clock} link='/timeline'/>
         <SidebarLinks label='Status' icon={FileChartColumn} link='/status'/>
         <SidebarLinks label='Settings' icon={Settings} link='/settings'/>

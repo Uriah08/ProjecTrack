@@ -11,7 +11,6 @@ const SearchContainer = () => {
   
     const items = [
       { label: 'Dashboard', path: '/' },
-      { label: 'Search', path: '/search' },
       { label: 'Timeline', path: '/timeline' },
       { label: 'Status', path: '/status' },
       { label: 'Settings', path: '/settings' },

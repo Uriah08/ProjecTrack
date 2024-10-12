@@ -75,7 +75,7 @@ export default function Home() {
           </div>
         </div>
         <div className='flex w-full h-[500px] shadow-md rounded-lg'>
-          <ProjectChart projects={projects}/>
+          <ProjectChart Projects={projects}/>
         </div>
       </div>
       <div className='w-full xl:w-1/3 gap-5 flex flex-col'>

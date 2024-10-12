@@ -55,9 +55,8 @@ const CountChart = ({projects}: Props) => {
         </div>
         <div className='w-full h-[75%] relative'>
         <ResponsiveContainer>
-        <RadialBarChart cx="50%" cy="50%" innerRadius="40%" outerRadius="100%" barSize={32} data={data}>
+        <RadialBarChart cx="50%" cy="50%" innerRadius="20%" outerRadius="100%" barSize={32} data={data}>
           <RadialBar
-            label={{ position: 'insideStart', fill: `${theme === 'light' ? '#141414' : '#f5f5f5'}` }}
             dataKey="count"
           />
         </RadialBarChart>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Search } from 'lucide-react'
 import Profile from './Profile'
-import ToggleTheme from '../toggle-theme'
 import { Dialog, DialogTrigger } from '../ui/dialog'
 import DialogContainer from './Dialog'
 
@@ -18,7 +17,6 @@ const NavBar = () => {
           <Search className='absolute top-[13px] left-5'/>
           </div>
           <div className='flex gap-5 items-center'>
-            <ToggleTheme/>
           <Profile/>
           </div>
         </div>

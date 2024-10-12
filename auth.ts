@@ -7,7 +7,7 @@ import authConfig from "./auth.config"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
-    async session({ token, session }) {
+    async session({ token, session  }) {
       if(token.sub && session.user) {
         session.user.id = token.sub
       }

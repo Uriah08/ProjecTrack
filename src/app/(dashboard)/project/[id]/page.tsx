@@ -51,13 +51,20 @@ const ProjectsPage = () => {
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex flex-col gap-10">
       <div className='flex justify-between items-center'>
-      <h1 className='text-3xl font-semibold'>{project?.name}</h1>
+        <div className='flex gap-3 items-center'>
+        <h1 className='text-xl sm:text-2xl lg:text-3xl font-semibold'>{project?.name}</h1>
+        {project?.status === 'Late' && 
+        <h1 className='px-3 py-2 font-semibold text-xs md:text-base bg-yellow-500 text-yellow-800 rounded-full'>
+          Late
+        </h1>
+        }
+        </div>
       <div className='flex gap-3'>
       <Dialog>
         <DialogTrigger asChild>
           <Button variant={'outline'} className='dark:bg-main bg-follow hover:bg-follow2 dark:hover:bg-main2 text-myLight dark:text-myDark flex gap-2'>
             <ClipboardPlus size={20}/>
-            <span className='hidden sm:block'>Add Task</span>
+            <span className='hidden md:block'>Add Task</span>
           </Button>
         </DialogTrigger>
         <DialogContainer type='task'/>
@@ -75,7 +82,7 @@ const ProjectsPage = () => {
         <DialogTrigger asChild>
           <Button className='bg-red-600 flex gap-2 hover:bg-red-700'>
             <Trash size={20}/>
-            <span className='hidden sm:block'>Delete Project</span>
+            <span className='hidden md:block'>Delete Project</span>
           </Button>
         </DialogTrigger>
         <DialogContainer type='delete-project'/>

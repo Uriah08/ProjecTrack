@@ -9,6 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: { projectId: s
       where: { projectId: projectId.toString() },
     });
     return NextResponse.json(tasks);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ error: 'Unable to fetch tasks' }, { status: 500 });
   }

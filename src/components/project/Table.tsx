@@ -6,6 +6,7 @@ type Props = {
   projectId: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Table = ({projectId}: Props) => {
 
   return (

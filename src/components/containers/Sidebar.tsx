@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import SidebarLinks from './SidebarLinks'
-import { Folder, Ban, Gauge, FolderPlus, FileQuestion, Clock, FileChartColumn, Settings, ChevronDown, ChevronUp, TriangleAlert, OctagonAlert, ShieldAlert, CircleAlert, SquareLibrary } from 'lucide-react'
+import { Folder, Ban, Gauge, FolderPlus, FileQuestion, Clock, FileChartColumn, Settings, ChevronDown, ChevronUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
 import DialogContainer from './Dialog'

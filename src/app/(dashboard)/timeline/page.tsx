@@ -78,7 +78,7 @@ const TimelinePage = () => {
       {/* Render the Gantt chart */}
       <div className='overflow-hidden rounded-md shadow'>
         {ganttProjects?.length === 0 ? (
-          <div className='p-5 text-center'>No tasks available</div>
+          <div className='p-5 text-center'>No projects available</div>
         ) : (
           <div className='timeline'>
             <Gantt

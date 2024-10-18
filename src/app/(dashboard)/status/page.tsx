@@ -50,20 +50,15 @@ const GroupPage = () => {
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex flex-col gap-10">
       <h1 className="text-3xl font-semibold">Project Status</h1>
-      <div className="flex">
+      <div className="flex xl:flex-row flex-col">
       <DndProvider backend={backend}>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 w-3/4">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-3 w-full xl:w-3/4">
           {projectStatus.map((status) => (
             <ProjectColumn key={status} status={status} projects={projects} moveProject={moveProject} />
           ))}
         </div>
-        {projects?.length === 0 && !isLoading && (
-          <div className="w-full h-full flex justify-center items-center">
-            <h1 className="text-5xl font-bold mt-36 opacity-25">No Projects Found</h1>
-          </div>
-        )}
       </DndProvider>
-      <div className="flex flex-col w-1/4">
+      <div className="flex flex-col xl:w-1/4 w-full">
         <div className="p-3 mb-4 bg-yellow-500 h-fit m-3 rounded-lg dark:text-myDark text-myLight flex justify-between items-center px-5">
           <h1 className="text-lg font-semibold ">Late</h1>
           <span className="font-bold text-sm">{lateProjects.length}</span>
@@ -85,6 +80,11 @@ const GroupPage = () => {
         ))}
       </div>
       </div>
+      {projects?.length === 0 && !isLoading && (
+          <div className="w-full h-full flex justify-center items-center">
+            <h1 className="text-5xl font-bold mt-14 opacity-25">No Projects Found</h1>
+          </div>
+        )}
     </div>
   );
 };

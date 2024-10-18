@@ -24,36 +24,36 @@ import Image from 'next/image'
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Create Project",
-    href: "/help",
+    href: "/help/create",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Create Task",
-    href: "/help",
+    href: "/help/create",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Drag and Drop Task",
-    href: "/help",
+    href: "/help/manage",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Real Time Dashboard",
-    href: "/help",
+    href: "/help/navigate",
     description: "Visually or semantically separates content.",
   },
   {
     title: "Manage Tasks",
-    href: "/help",
+    href: "/help/manage",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
     title: "AI Powered",
-    href: "/help",
+    href: "/help/manage",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
@@ -73,7 +73,7 @@ const Recommendation = () => {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href="/help/handle"
                   >
                     <Image src={'/logo.png'} width={30} height={30} alt='logo'/>
                     <div className="mb-2 mt-4 text-lg font-medium">
@@ -85,13 +85,13 @@ const Recommendation = () => {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/help" title="Introduction">
+              <ListItem href="/help/introduction" title="Introduction">
                 Welcome to our Task Management Web App!
               </ListItem>
-              <ListItem href="/help" title="Dashboard Overview">
+              <ListItem href="/help/navigate" title="Dashboard Overview">
                 After logging in, you will be taken to the Dashboard
               </ListItem>
-              <ListItem href="/help" title="Projects">
+              <ListItem href="/help/create" title="Projects">
               Start by clicking the &quot;Create Project&quot; button, give your project a title, and set a due date
               </ListItem>
             </ul>
@@ -114,7 +114,7 @@ const Recommendation = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/help" legacyBehavior passHref>
+          <Link href="/help/introduction" legacyBehavior passHref>
             <NavigationMenuLink className={`${navigationMenuTriggerStyle()} dark:bg-main bg-follow`}>
               More...
             </NavigationMenuLink>
@@ -128,7 +128,7 @@ const Recommendation = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>Is it free?</AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              Yes. It&apos;s absolutely free
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
@@ -139,25 +139,24 @@ const Recommendation = () => {
           </AccordionItem>
         </Accordion>
 
-    <h1 className='text-xl font-bold mb-5 mt-3'>How to create good projects?</h1>
+        <h1 className='text-xl font-bold mb-5 mt-3'>How to create good projects?</h1>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it free?</AccordionTrigger>
+            <AccordionTrigger>What is the first step in creating a good project?</AccordionTrigger>
             <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+              The first step is to define clear project goals. Understand the purpose, scope, and objectives to ensure that the entire team is aligned and knows what success looks like.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger>Is it styled?</AccordionTrigger>
+            <AccordionTrigger>Why is planning crucial for project success?</AccordionTrigger>
             <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
+              Proper planning creates a roadmap for the project. It includes defining tasks, setting deadlines, and allocating resources to keep everything on track and ensure smooth execution.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
+            <AccordionTrigger>How important is testing during project development?</AccordionTrigger>
             <AccordionContent>
-              Yes. It&apos;s animated by default, but you can disable it if you prefer.
+              Testing ensures the project meets requirements and functions as expected. Early testing helps catch issues and ensures that the final product is reliable and ready for delivery.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

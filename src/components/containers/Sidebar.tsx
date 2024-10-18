@@ -47,20 +47,20 @@ const Sidebar = ({sidebarOpen}:Props) => {
 
         <div className='py-2'/>
         <SidebarLinks label='Dashboard' icon={Gauge} link='/'/>
-        <SidebarLinks label='Help' icon={FileQuestion} link='/help'/>
+        <SidebarLinks label='Help' icon={FileQuestion} link='/help/introduction'/>
         <SidebarLinks label='Timeline' icon={Clock} link='/timeline'/>
         <SidebarLinks label='Status' icon={FileChartColumn} link='/status'/>
         <SidebarLinks label='Settings' icon={Settings} link='/settings'/>
       
 
-        <div className='px-5 pt-5 pb-3'>
+        {/* <div className='px-5 pt-5 pb-3'>
         <h1 className='text-xs hidden md:block'>Priority</h1>
         </div>
         <SidebarLinks label='Urgent' icon={TriangleAlert} link='/priority/urgent'/>
         <SidebarLinks label='High' icon={OctagonAlert} link='/priority/high'/>
         <SidebarLinks label='Medium' icon={CircleAlert} link='/priority/medium'/>
         <SidebarLinks label='Low' icon={ShieldAlert} link='/priority/low'/>
-        <SidebarLinks label='Backlog' icon={SquareLibrary} link='/priority/backlog'/>
+        <SidebarLinks label='Backlog' icon={SquareLibrary} link='/priority/backlog'/> */}
         <div className='px-5 py-3 flex pt-8 justify-center md:justify-between cursor-pointer' onClick={() => setOpenProjects(!openProjects)}>
         <h1 className='text-xs hidden md:block'>Projects</h1>
           {openProjects ? <ChevronUp size={15}/> : <ChevronDown size={15}/>}

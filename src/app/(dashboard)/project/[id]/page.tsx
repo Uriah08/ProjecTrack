@@ -7,8 +7,8 @@ import { useGetProjectByIdQuery, useUpdateProjectStatusMutation } from '@/src/st
 import { Button } from '@/src/components/ui/button'
 import DialogContainer from '@/src/components/containers/Dialog'
 import { Dialog, DialogTrigger } from '@/src/components/ui/dialog'
-import { ClipboardPlus, Grid3X3Icon, BetweenHorizonalEnd, List, Trash } from "lucide-react"
-import Table from '@/src/components/project/Table'
+import { ClipboardPlus, Grid3X3Icon, List, Trash } from "lucide-react"
+// import Table from '@/src/components/project/Table'
 import ProjectList from '@/src/components/project/List'
 
 import Board from '@/src/components/project/Board'
@@ -95,10 +95,10 @@ const ProjectsPage = () => {
             <Grid3X3Icon size={20}/>
             <span className='text-[15px] font-light hidden sm:block'>Board</span>
           </div>
-          <div className={`flex border-b border-transparent px-2 py-2 items-center gap-1 cursor-pointer hover:text-follow dark:hover:text-main hover:border-follow dark:hover:border-main duration-200 transition-all ${openTab === 'table' ? 'text-follow dark:text-main border-follow dark:border-main':''}`} onClick={() => setOpenTab('table')}>
+          {/* <div className={`flex border-b border-transparent px-2 py-2 items-center gap-1 cursor-pointer hover:text-follow dark:hover:text-main hover:border-follow dark:hover:border-main duration-200 transition-all ${openTab === 'table' ? 'text-follow dark:text-main border-follow dark:border-main':''}`} onClick={() => setOpenTab('table')}>
             <BetweenHorizonalEnd size={20}/>
             <span className='text-[15px] font-light hidden sm:block'>Table</span>
-          </div>
+          </div> */}
           <div className={`flex border-b border-transparent px-2 py-2 items-center gap-1 cursor-pointer hover:text-follow dark:hover:text-main hover:border-follow dark:hover:border-main duration-200 transition-all ${openTab === 'list' ? 'text-follow dark:text-main border-follow dark:border-main':''}`} onClick={() => setOpenTab('list')}>
             <List size={20}/>
             <span className='text-[15px] font-light hidden sm:block'>List</span>
@@ -107,7 +107,7 @@ const ProjectsPage = () => {
       </div>
       <div className='w-full h-fit'>
         {openTab === 'board' && <Board projectId={id.toString()}/>}
-        {openTab === 'table' && <Table projectId={id.toString()}/>}
+        {/* {openTab === 'table' && <Table projectId={id.toString()}/>} */}
         {openTab === 'list' && <ProjectList projectId={id.toString()}/>}
       </div>
     </div>

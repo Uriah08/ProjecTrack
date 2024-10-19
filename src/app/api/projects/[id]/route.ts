@@ -32,7 +32,7 @@ export async function GET(req: Request, { params }: Props) {
         const project = await db.project.findUnique({
             where: {id},
             include: {
-                user: true, // Includes the user relation if you want user details as well
+                user: true,
             }
         })
 

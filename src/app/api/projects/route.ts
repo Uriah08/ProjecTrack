@@ -20,7 +20,6 @@ export async function GET(req: Request) {
         },
       },
     });
-    
 
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {
@@ -28,30 +27,30 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req:Request) {
-    const body = await req.json()
+export async function POST(req: Request) {
+  const body = await req.json();
 
-    const parseResult = projectSchema.safeParse(body)
+  const parseResult = projectSchema.safeParse(body);
 
-    if(!parseResult.success) {
-        return NextResponse.json({ errors: 'Error parsing the schema' }, { status: 400 })
-    }
+  if (!parseResult.success) {
+    return NextResponse.json({ errors: 'Error parsing the schema' }, { status: 400 });
+  }
 
-    const { name, description, startDate, endDate, userId } = parseResult.data
+  const { name, description, startDate, endDate, userId } = parseResult.data;
 
-    try {
-        const project = await db.project.create({
-            data: {
-                name,
-                description,
-                startDate,
-                endDate,
-                userId
-            }
-        })
+  try {
+    const project = await db.project.create({
+      data: {
+        name,
+        description,
+        startDate,
+        endDate,
+        userId,
+      },
+    });
 
-        return NextResponse.json(project, { status: 201})
-    } catch (error) {
-        return NextResponse.json({ error: `Failed to create a project. ${error}`})
-    }
+    return NextResponse.json(project, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ error: `Failed to create a project: ${error}` }, { status: 500 });
+  }
 }

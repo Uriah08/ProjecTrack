@@ -18,7 +18,7 @@ const Time: React.FC = () => {
   const day = time.toLocaleDateString('en-US', { weekday: 'long' });
 
   return (
-    <div className="h-full w-full bg-follow dark:bg-main rounded-xl flex flex-col items-center justify-center">
+    <div className="h-full w-full bg-follow dark:bg-main rounded-xl flex flex-col items-center justify-center py-2">
       <h1 className="text-xl font-bold">{day}</h1>
       <div className="flex space-x-2 text-2xl font-normal">
         <span className='text-center'>{hours} : {minutes} : {seconds} {ampm}</span>

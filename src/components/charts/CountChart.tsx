@@ -63,7 +63,7 @@ const CountChart = ({projects}: Props) => {
       </ResponsiveContainer>
       {/* <Image src={'/maleFemale.png'} width={50} height={50} alt='image' className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'/> */}
         </div>
-        <div className='flex justify-center gap-16'>
+        <div className='flex justify-center gap-16 flex-wrap'>
             <div className='flex flex-col gap-1'>
               <div className='flex gap-1'>
               <div className='w-5 h-5 bg-[#3B82F6] rounded-full'></div>

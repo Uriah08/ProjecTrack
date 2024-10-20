@@ -54,6 +54,7 @@ const CreateProject: React.FC = () => {
           toast({
               title: "Project Created",
               description: "Your project has been created successfully!",
+              className: "dark:bg-myDark bg-myLight"
           });
           form.reset();
       } catch (error) {
@@ -61,6 +62,7 @@ const CreateProject: React.FC = () => {
           toast({
               title: "Error Creating Project",
               description: "An error occurred while creating your project. Please try again.",
+              className: "dark:bg-myDark bg-myLight"
           });
       }
   };
@@ -93,7 +95,7 @@ const CreateProject: React.FC = () => {
                         </FormItem>
                     )}
                 />
-                <div className="flex justify-between">
+                <div className="flex justify-between sm:flex-row flex-col space-y-6 sm:space-y-0">
                     <FormField
                         control={form.control}
                         name="startDate"
@@ -105,7 +107,7 @@ const CreateProject: React.FC = () => {
                                         <FormControl>
                                             <Button
                                                 variant={'outline'}
-                                                className={`w-[220px] ${!field.value && "text-muted-foreground"}`}
+                                                className={`sm:w-[220px] ${!field.value && "text-muted-foreground w-full"}`}
                                             >
                                                 {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -137,7 +139,7 @@ const CreateProject: React.FC = () => {
                                         <FormControl>
                                             <Button
                                                 variant={'outline'}
-                                                className={`w-[220px] ${!field.value && "text-muted-foreground"}`}
+                                                className={`sm:w-[220px] ${!field.value && "text-muted-foreground w-full"}`}
                                             >
                                                 {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />

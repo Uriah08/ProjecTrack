@@ -79,8 +79,10 @@ export default function Home() {
         </div>
       </div>
       <div className='w-full xl:w-1/3 gap-5 flex flex-col'>
-        <div className='flex gap-5'>
-        <Calendar/>
+        <div className='flex gap-5 sm:flex-row flex-col'>
+          <div className="flex justify-center items-center">
+          <Calendar/>
+          </div>
         <Time/>
         </div>
         <ProjectSection projects={projects || []} isLoading={isLoading} statuses={statuses}/>

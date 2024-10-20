@@ -7,7 +7,7 @@ import { useGetProjectByIdQuery, useUpdateProjectStatusMutation } from '@/src/st
 import { Button } from '@/src/components/ui/button'
 import DialogContainer from '@/src/components/containers/Dialog'
 import { Dialog, DialogTrigger } from '@/src/components/ui/dialog'
-import { ClipboardPlus, Grid3X3Icon, List, Trash } from "lucide-react"
+import { ClipboardPlus, Grid3X3Icon, List, Trash, FolderCheck } from "lucide-react"
 // import Table from '@/src/components/project/Table'
 import ProjectList from '@/src/components/project/List'
 
@@ -69,7 +69,8 @@ const ProjectsPage = () => {
         </DialogTrigger>
         <DialogContainer type='task'/>
       </Dialog>
-      {/* <Dialog>
+      {project?.status !== 'Finished' && (
+        <Dialog>
         <DialogTrigger asChild>
           <Button className='bg-green-600 flex gap-2 hover:bg-green-700' disabled={project?.status === 'Finished'}>
             <FolderCheck size={20}/>
@@ -77,7 +78,8 @@ const ProjectsPage = () => {
           </Button>
         </DialogTrigger>
         <DialogContainer type='finish-project'/>
-      </Dialog> */}
+      </Dialog>
+      )}
       <Dialog>
         <DialogTrigger asChild>
           <Button className='bg-red-600 flex gap-2 hover:bg-red-700'>

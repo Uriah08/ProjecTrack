@@ -93,7 +93,7 @@ const HelpPage = () => {
                     },
                     {
                         listTitle: "Update Task Status:",
-                        listContent: "Keep your projects organized by marking tasks as (In Progress) or (Completed). Simply click on the task and update its status based on where you are in the process. These updates will automatically be reflected on your Dashboard."
+                        listContent: "Keep your projects organized by easily dragging and dropping tasks into their appropriate statuses: (To Do), (In Progress), (Cancelled), or (Completed). Simply drag the task to the corresponding column, and the status will be automatically updated based on where you place it. All updates will be instantly reflected on your Dashboard."
                     },
                     {
                         listTitle: "Editing Tasks:",

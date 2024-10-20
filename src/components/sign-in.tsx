@@ -12,9 +12,9 @@ export default function SignIn() {
       }}
       className="w-full"
     >
-      <Button type="submit" variant={'outline'} className="rounded-full h-[70px] gap-5 w-full flex items-center">
+      <Button type="submit" variant={'outline'} className="rounded-full h-[70px] gap-5 w-full flex items-center bg-myLightFollow">
       <Image src={'/Google.png'} width={40} height={40} alt='logo'/>
-        <span className="text-lg">Sign In with Google </span>
+        <span className="text-lg text-myDark">Sign In with Google </span>
         </Button>
     </form>
   )

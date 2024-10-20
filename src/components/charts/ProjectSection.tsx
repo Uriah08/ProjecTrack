@@ -32,7 +32,7 @@ const ProjectSection = ({projects, isLoading, statuses}: Props) => {
         )}
         {!isLoading && projects.length === 0 && (
             <div className='w-full h-full flex justify-center items-center'>
-                <h1 className='text-5xl font-bold my-16 opacity-25'>No Projects Found</h1>
+                <h1 className='text-5xl font-bold my-16 opacity-25 text-center'>No Projects Found</h1>
             </div>
         )}
         <div className='flex flex-col gap-3 max-h-[250px] overflow-y-auto pr-3 pt-3'>
@@ -41,9 +41,9 @@ const ProjectSection = ({projects, isLoading, statuses}: Props) => {
             <div className='absolute w-full h-[5px] -top-[2px] xl:-top-[5px] left-0 dark:bg-main bg-follow -z-10 blur-sm hover:blur-xl rounded-full duration-200 transition-all'/>
             <div className='flex gap-2 items-center'>
                     <div className={`h-3 w-3 rounded-full ${project.status === 'Current' ? 'bg-blue-500': project.status === 'Finished' ? 'bg-green-500':project.status === 'Late' ? 'bg-yellow-500':'bg-red-500'}`}/>
-                <h1 className='text-xl font-medium'>{project.name}</h1>
+                <h1 className='sm:text-xl text-base font-medium'>{project.name}</h1>
             </div>
-            <div className='text-zinc-500'>
+            <div className='text-zinc-500 sm:text-base text-[10px]'>
                 <h1>{format(new Date(project.startDate), "MMM d, yyyy")} - {format(new Date(project.endDate), "MMM d, yyyy")}</h1>
             </div>
         </Link>

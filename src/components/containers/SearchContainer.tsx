@@ -56,7 +56,7 @@ const SearchContainer = () => {
   });
 
   return (
-    <Command className="rounded-lg shadow-none md:min-w-[450px] bg-myDark">
+    <Command className="rounded-lg shadow-none md:min-w-[450px] dark:bg-myDark bg-myLight">
       <CommandInput placeholder="Search..." 
       value={searchQuery}
       onValueChange={(value) => setSearchQuery(value)}/>

@@ -25,7 +25,7 @@ const List = ({projectId}: Props) => {
 
   if(tasks?.length === 0) {
     return <div className='w-full h-full flex justify-center items-center'>
-      <h1 className='text-5xl font-bold mt-36 opacity-25'>No Tasks Found</h1>
+      <h1 className='text-5xl font-bold mt-36 opacity-25 text-center'>No Tasks Found</h1>
     </div>
   }
 

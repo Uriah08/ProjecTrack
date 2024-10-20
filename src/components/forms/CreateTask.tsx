@@ -60,12 +60,14 @@ const CreateTask = () => {
             toast({
                 title: "Task created successfully!",
                 description: `Task: ${taskData.title} with a priority of ${taskData.priority}`,
+                className: "dark:bg-myDark bg-myLight"
             });
             form.reset();
         } catch (error) {
             toast({
                 title: "Error creating task",
                 description: "Failed to create a task. Please try again later.",
+                className: "dark:bg-myDark bg-myLight"
             })
             console.log(error);
         }

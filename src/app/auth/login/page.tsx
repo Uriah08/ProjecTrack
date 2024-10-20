@@ -11,10 +11,10 @@ const LoginPage = () => {
         <h1 className='text-3xl md:text-4xl font-bold text-main'>Projec<span className='text-follow'>Track</span></h1>
       </div>
 
-      <h1 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mt-20 z-20 self-center text-center'>Your Ultimate Project Management Solution!</h1>
+      <h1 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mt-20 z-20 self-center text-center text-myLight'>Your Ultimate Project Management Solution!</h1>
 
       <div className='mt-8 md:mt-16 self-center text-center md:text-justify'>
-        <p className='text-base md:text-xl'>ProjecTrack is a powerful, easy-to-use project management system designed to help you organize, track, and streamline your projects from start to finish. Whether you’re managing personal tasks or project, ProjecTrack offers a complete toolkit to break down complex projects into manageable tasks, assign deadlines, and track progress.</p>
+        <p className='text-base md:text-xl text-myLight'>ProjecTrack is a powerful, easy-to-use project management system designed to help you organize, track, and streamline your projects from start to finish. Whether you’re managing personal tasks or project, ProjecTrack offers a complete toolkit to break down complex projects into manageable tasks, assign deadlines, and track progress.</p>
       </div>
       <div className='w-[300px] self-center mt-10'>
       <SignIn/>

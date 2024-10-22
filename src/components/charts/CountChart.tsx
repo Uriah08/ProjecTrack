@@ -23,7 +23,7 @@ const CountChart = ({projects}: Props) => {
       {
             name: 'Total',
             count: total,
-            fill: `${theme === 'dark' ? '#141414' : '#f5f5f5'}`,
+            fill: `${theme === 'dark' ? '#27272a' : '#e4e4e7'}`,
       },
       {
         name: 'Cancelled',
@@ -48,7 +48,7 @@ const CountChart = ({projects}: Props) => {
     ];
 
   return (
-    <div className='dark:bg-myDark bg-myLight rounded-xl w-full h-full p-4'>
+    <div className='bg-zinc-200 dark:bg-zinc-800 rounded-xl w-full h-full p-4'>
         <div className='flex justify-between items-center'>
             <h1 className='text-lg font-semibold'>Your Projects</h1>
             {/* <Image src={'/moreDark.png'} alt='logo' width={20} height={20}/> */}
@@ -63,7 +63,7 @@ const CountChart = ({projects}: Props) => {
       </ResponsiveContainer>
       {/* <Image src={'/maleFemale.png'} width={50} height={50} alt='image' className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'/> */}
         </div>
-        <div className='flex justify-center gap-16 flex-wrap'>
+        <div className='flex justify-center gap-16 flex-wrap sm:flex-nowrap'>
             <div className='flex flex-col gap-1'>
               <div className='flex gap-1'>
               <div className='w-5 h-5 bg-[#3B82F6] rounded-full'></div>

@@ -112,7 +112,14 @@ const DialogContainer = ({type, task, project}: Props) => {
         </>
       )}
       {type === 'search' && (
+        <>
+          <DialogHeader>
+          <DialogTitle>
+                Search
+            </DialogTitle>
+          </DialogHeader>
         <SearchContainer/>
+        </>
       )}
     </DialogContent>
   )

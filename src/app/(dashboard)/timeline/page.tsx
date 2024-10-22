@@ -2,7 +2,7 @@
 
 import { useGetProjectsQuery } from '@/store/api';
 import { useSession } from 'next-auth/react';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import LoadingSpinner from '@/components/containers/LoadingSpinner';
 import "gantt-task-react/dist/index.css";
 import { DisplayOption, Gantt, Task, ViewMode } from 'gantt-task-react';
@@ -25,6 +25,26 @@ const TimelinePage = () => {
     viewMode: ViewMode.Month,
     locale: 'en-US',
   });
+
+  const [listCellWidth, setListCellWidth] = useState('100px'); // Default for md and above screens
+
+  useEffect(() => {
+    const updateListCellWidth = () => {
+      if (window.innerWidth < 768) {
+        setListCellWidth('50px');
+      } else {
+        setListCellWidth('100px');
+      }
+    };
+
+    updateListCellWidth();
+
+    window.addEventListener('resize', updateListCellWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateListCellWidth);
+    };
+  }, []);
 
   const ganttProjects: Task[] = useMemo(() => {
     return (
@@ -76,25 +96,28 @@ const TimelinePage = () => {
       </div>
 
       {/* Render the Gantt chart */}
-      <div className='overflow-hidden rounded-md shadow'>
-        {ganttProjects?.length === 0 ? (
-          <div className='p-5 text-center'>No projects available</div>
-        ) : (
-          <div className='timeline'>
-            <Gantt
-              todayColor=''
-              fontFamily=""  // Use your custom Poppins font
-              tasks={ganttProjects}
-              {...displayOptions}
-              columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
-              listCellWidth='100px'
-              projectBackgroundColor={theme === 'dark' ? "#454545" : "#aeb8c2"}
-              projectBackgroundSelectedColor={theme === 'dark' ? "#ffffff" : "#9ba1e6"}
-              projectProgressColor={theme === 'dark' ? "#353535" : "#aeb8c2"}
-            />
-          </div>
-        )}
+      <div className="overflow-hidden rounded-md shadow">
+    {ganttProjects?.length === 0 ? (
+      <div className="p-5 text-center">No projects available</div>
+    ) : (
+      <div className="timeline">
+        <Gantt
+          todayColor=""
+          fontFamily="" // Use your custom Poppins font
+          tasks={ganttProjects}
+          {...displayOptions}
+          columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
+          listCellWidth={listCellWidth}  // Reduce width of task list to minimize or hide columns
+          ganttHeight={400}      // Adjust height if needed
+          viewMode={displayOptions.viewMode}
+          // Apply custom styles to hide the "From" and "To" columns if needed
+          projectBackgroundColor={theme === 'dark' ? "#454545" : "#aeb8c2"}
+          projectBackgroundSelectedColor={theme === 'dark' ? "#ffffff" : "#9ba1e6"}
+          projectProgressColor={theme === 'dark' ? "#353535" : "#aeb8c2"}
+        />
       </div>
+    )}
+  </div>
     </div>
   );
 };

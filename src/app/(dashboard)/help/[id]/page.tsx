@@ -359,7 +359,7 @@ const HelpPage = () => {
             <h1 className='text-zinc-500 text-base'>Help  &gt;  <span className='text-myDark dark:text-myLight'>{getContent.title}</span></h1>
             <h1 className='text-3xl mt-5 font-semibold'>{getContent.header}</h1>
             {getContent.contents?.map((content,i) => (
-                <p key={i} className='mt-10 indent-10 text-zinc-400 text-base'>
+                <p key={i} className='mt-10 indent-10 dark:text-zinc-400 text-zinc-600 text-base'>
                 {content}
                 </p>
             ))}
@@ -370,14 +370,14 @@ const HelpPage = () => {
                     {getContent.list.lists.map((list,i) => (
                         <div key={i}>
                             <h1 className='text-lg mt-2'>{i + 1}. {list.listTitle}</h1>
-                            <p className='mt-2 indent-10 text-zinc-400 text-sm'>{list.listContent}</p>
+                            <p className='mt-2 indent-10 dark:text-zinc-400 text-zinc-600 text-sm'>{list.listContent}</p>
                         </div>
                     ))}
                 </div>
                 </>
             )}
             {getContent.footer && (
-                <p className='mt-10 indent-10 text-zinc-400 text-base'>
+                <p className='mt-10 indent-10 dark:text-zinc-400 text-zinc-600 text-base'>
                 {getContent.footer}
                 </p>
             )}
@@ -393,7 +393,7 @@ const HelpPage = () => {
             <h1 className='text-main text-xl font-semibold'>Projec<span className='text-follow'>Track</span></h1>
             </div>
             <p className='text-zinc-500 my-5'>Simplify your project by the better management and efficiency of ProjecTrack.</p>
-            <Link href={'/'} className='bg-follow px-3 py-2 dark:bg-main text-myLight dark:text-myDark rounded-lg'>Start Now!</Link>
+            <Link href={'/'} className='dark:bg-main bg-follow hover:bg-follow2 dark:hover:bg-main2 duration-200 transition-allw px-3 py-2 text-myLight dark:text-myDark rounded-lg'>Start Now!</Link>
         </div>
         </div>
     </div>

@@ -50,11 +50,11 @@ export default function Home() {
   return (
     <div className="bg-myLightFollow dark:bg-myDarkFollow h-full p-5 md:p-10 flex xl:flex-row flex-col gap-8">
       <div className='w-full flex flex-col xl:w-2/3 h-fit gap-5'>
-        <div className='w-full dark:bg-myDark gap-5 p-5 rounded-xl flex justify-between items-center shadow-md bg-myLight'>
+        <div className='w-full gap-5 p-5 rounded-xl flex justify-between items-center shadow-md bg-zinc-200 dark:bg-zinc-800'>
           <h1 className='text-xl xl:text-2xl font-bold'>Hi <span className='text-follow dark:text-main'>{session?.user?.name}!</span> Welcome to ProjecTrack</h1>
           <Dialog>
             <DialogTrigger asChild>
-            <Button className='dark:bg-main bg-follow gap-2'>
+            <Button className='dark:bg-main bg-follow hover:bg-follow2 dark:hover:bg-main2 duration-200 transition-all gap-2'>
             <FolderPlus size={20}/> <span className='hidden md:block'>Create Project</span>
             </Button>
             </DialogTrigger>
@@ -81,7 +81,7 @@ export default function Home() {
       <div className='w-full xl:w-1/3 gap-5 flex flex-col'>
         <div className='flex gap-5 sm:flex-row flex-col'>
           <div className="flex justify-center items-center">
-          <Calendar/>
+          <Calendar className="bg-zinc-200 dark:bg-zinc-800 rounded-lg shadow-md"/>
           </div>
         <Time/>
         </div>

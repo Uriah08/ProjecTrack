@@ -51,14 +51,18 @@ const StatusChart = ({ projects }: Props) => {
   ];
 
   return (
-    <div className='bg-myLight dark:bg-myDark rounded-lg p-4 h-full'>
+    <div className='bg-zinc-200 dark:bg-zinc-800 rounded-lg p-4 h-full'>
       <div className='flex justify-between items-center'>
         <h1 className='text-lg font-semibold'>Your Project Tasks</h1>
       </div>
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data} barSize={20}>
           <Legend align='left' verticalAlign='top' wrapperStyle={{ paddingTop: "20px", paddingBottom: "40px" }} />
-          <Tooltip cursor={{ fill: `${theme === 'light' ? '#ebe8e8' : '#212121'}` }} contentStyle={{ borderRadius: "10px", backgroundColor: `${theme === 'light' ? '#ebe8e8' : '#212121'}` }} />
+          <Tooltip 
+          label={"Project"}
+            cursor={{ fill: `${theme === 'light' ? '#ebe8e8' : '#212121'}` }} 
+            contentStyle={{ borderRadius: "10px", backgroundColor: `${theme === 'light' ? '#ebe8e8' : '#212121'}` }}
+          />
           <Bar dataKey="Projects" fill="#F0406F" legendType='circle' />
           <Bar dataKey="Tasks" fill="#4D9AD0" legendType='circle' />
         </BarChart>

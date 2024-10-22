@@ -45,7 +45,7 @@ const ProjectChart = ({ Projects = [] }: Props) => {
   }));
 
   return (
-    <div className="bg-myLight dark:bg-myDark rounded-xl w-full h-full p-4">
+    <div className="bg-zinc-200 dark:bg-zinc-800 rounded-xl w-full h-full p-4">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Your Project Status</h1>
       </div>

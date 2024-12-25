@@ -11,7 +11,7 @@ import CountChart from '@/components/charts/CountChart';
 import StatusChart from '@/components/charts/StatusChart';
 import ProjectChart from '@/components/charts/ProjectChart';
 import { Calendar } from '@/components/ui/calendar';
-import { useGetProjectsQuery } from '@/store/api';
+import { useGetNotificationsQuery, useGetProjectsQuery } from '@/store/api';
 import ProjectSection from '@/components/charts/ProjectSection';
 
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
@@ -28,11 +28,14 @@ export default function Home() {
     skip: !session?.user?.id
   });
 
+  const { refetch: notifRefetch } = useGetNotificationsQuery();
+
   React.useEffect(() => {
     if (session?.user?.id) {
       refetch();
+      notifRefetch()
     }
-  }, [refetch, session?.user?.id]);
+  }, [refetch, session?.user?.id, notifRefetch]);
 
   if(!session) {
     return (
@@ -89,5 +92,5 @@ export default function Home() {
         <Recommendation/>
       </div>
     </div>
-  );
+  )
 };

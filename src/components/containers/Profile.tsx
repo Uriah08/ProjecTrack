@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { auth } from '@/auth'
+import { useSession } from 'next-auth/react'
 
-const  Profile = async () => {
+const  Profile = () => {
 
-  const session = await auth()
+  const { data: session } = useSession()
 
   return (
     <Link href={'/settings'} className='flex items-center gap-3'>

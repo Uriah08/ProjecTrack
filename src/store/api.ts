@@ -7,6 +7,10 @@ interface AIResponse {
   };
 }
 
+type NotificationResponse = {
+  notifications: Project[]
+}
+
 export const projectsApi = createApi({
   reducerPath: 'projectsApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
@@ -92,6 +96,17 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: ['AI'],
     }),
+    getNotifications: builder.query<NotificationResponse, void>({
+      query: () => '/notifications',
+      providesTags: ['Project'],
+    }),
+    markNotificationsAsRead: builder.mutation({
+      query: () => ({
+        url: '/notifications',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Project'],
+    }),
   }),
 });
 
@@ -106,5 +121,7 @@ export const {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useAskAIMutation,
-  useUpdateProjectStatusMutation
+  useUpdateProjectStatusMutation,
+  useGetNotificationsQuery,
+  useMarkNotificationsAsReadMutation,
 } = projectsApi;

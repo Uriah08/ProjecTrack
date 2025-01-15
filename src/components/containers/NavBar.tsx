@@ -55,7 +55,7 @@ const NavBar = () => {
               <div className="text-center py-4">Loading...</div>
             ) : notifications.length > 0 ? (
               notifications.map((notif) => (
-                <Link href={`/projects/${notif.id}`}
+                <Link href={`/project/${notif.id}`}
                   key={notif.id}
                   className="flex flex-col gap-3 pb-3 border-b border-gray-200 dark:border-gray-800 cursor-pointer"
                 >

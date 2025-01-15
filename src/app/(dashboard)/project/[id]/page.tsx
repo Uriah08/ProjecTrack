@@ -19,7 +19,7 @@ const ProjectsPage = () => {
   const { id } = useParams()
   const { data: project, isLoading, error} = useGetProjectByIdQuery(id.toString())
 
-  const [openTab, setOpenTab] = React.useState('board')
+  const [openTab, setOpenTab] = React.useState('list')
 
   const [updateProjectStatus] = useUpdateProjectStatusMutation();
 

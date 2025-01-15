@@ -6,12 +6,27 @@ import { Button } from '../ui/button'
 import { Dialog, DialogTrigger } from '../ui/dialog';
 
 import DialogContainer from '../containers/Dialog';
+import { Filter, Search } from 'lucide-react';
+import { Input } from '../ui/input';
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type Props = {
   projectId: string
 }
 
 const List = ({projectId}: Props) => {
+
+  const [open, setOpen] = React.useState(false)
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedFilter, setSelectedFilter] = React.useState<'newest' | 'latest' | 'low' | 'medium' | 'high' | 'urgent' | ''>('');
 
   const { data: tasks, isLoading, error } = useGetTasksQuery(projectId)
 
@@ -29,9 +44,58 @@ const List = ({projectId}: Props) => {
     </div>
   }
 
+  const filteredTasks = tasks
+  ?.filter((task) => {
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesPriorityFilter = selectedFilter === 'low' ||
+      selectedFilter === 'medium' ||
+      selectedFilter === 'high' ||
+      selectedFilter === 'urgent'
+      ? task.priority?.toLowerCase() === selectedFilter
+      : true;
+
+    return matchesSearch && matchesPriorityFilter;
+  })
+  ?.sort((a, b) => {
+    if (selectedFilter === 'newest') {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+    if (selectedFilter === 'latest') {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    }
+    return 0;
+  });
+
   return (
+    <>
+    <div className='w-full flex justify-between mb-5'>
+      <div className='relative w-fit border p-2 rounded-full'>
+        <Input type='text' className='border-none focus:outline-none outline-none focus-visible:ring-0 pl-10' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search tasks..."/>
+      <Search className='absolute top-[13px] left-5'/>
+      </div>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
+      <Filter size={28} className='cursor-pointer'/>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-[200px]">
+      <DropdownMenuLabel>Filter</DropdownMenuLabel>
+      <DropdownMenuItem onClick={() => setSelectedFilter('newest')}>Newest</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => setSelectedFilter('latest')}>Latest</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem onClick={() => setSelectedFilter('low')}>Low</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => setSelectedFilter('medium')}>Medium</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => setSelectedFilter('high')}>High</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => setSelectedFilter('urgent')}>Urgent</DropdownMenuItem>
+      </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+    
     <div className='grid grid-cols-1 lg:grid-cols-2 w-full gap-5'>
-      {tasks?.map((task) => (
+      {filteredTasks?.map((task) => (
         <div key={task.id} className='relative flex flex-col h-fit w-full z-0 p-10 gap-5 shadow-sm group hover:translate-x-3 transition-all duration-200'>
           <div className='absolute size-16 rounded-xl bg-follow dark:bg-main top-1.5 right-1.5 -z-10'></div>
           <div className='absolute size-16 rounded-xl bg-follow dark:bg-main opacity-50 group-hover:opacity-80 top-1.5 right-1.5 -z-10 blur-lg group-hover:blur-xl transition-all duration-200'></div>
@@ -62,6 +126,7 @@ const List = ({projectId}: Props) => {
         </div>
       ))}
     </div>
+    </>
   )
 }
 
